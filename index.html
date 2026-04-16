@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CapiNews — Relatório Completo de Inteligência em IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+:root{
+  --bg:#04040a;--bg2:#09090f;--bg3:#0e0e16;--surface:#13131c;--surface2:#1a1a25;
+  --border:rgba(255,255,255,0.055);--border2:rgba(255,255,255,0.1);--border3:rgba(255,255,255,0.16);
+  --text:#e6e6ef;--muted:#7070868;--dim:#2e2e46;--faint:#111120;
+  --amber:#f0b429;--a2:rgba(240,180,41,.07);--a3:rgba(240,180,41,.14);
+  --teal:#00d4aa;--t2:rgba(0,212,170,.07);
+  --coral:#ff6464;--c2:rgba(255,100,100,.07);
+  --blue:#4da6ff;--b2:rgba(77,166,255,.07);
+  --purple:#b07fff;--p2:rgba(176,127,255,.07);
+  --green:#4dbd78;--g2:rgba(77,189,120,.07);
+  --pink:#ff64b4;--pk2:rgba(255,100,180,.07);
+  --mono:'IBM Plex Mono',monospace;
+  --serif:'DM Serif Display',serif;
+  --sans:'DM Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.65;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--dim)}
+
+/* NAV */
+.nav{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;background:rgba(4,4,10,.96);backdrop-filter:blur(20px)}
+.logo{font-family:var(--serif);font-size:18px;letter-spacing:-.02em}.logo b{color:var(--amber)}
+.anchors{display:flex;gap:0;overflow-x:auto}
+.anc{padding:5px 13px;background:transparent;border:none;font-size:11px;color:var(--muted);cursor:pointer;font-family:var(--mono);letter-spacing:.04em;white-space:nowrap;transition:color .15s;border-bottom:2px solid transparent}
+.anc:hover{color:var(--text)}.anc.on{color:var(--amber);border-bottom-color:var(--amber)}
+.nav-r{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.live{font-family:var(--mono);font-size:9px;color:var(--teal);letter-spacing:.1em;display:flex;align-items:center;gap:4px}
+.ldot{width:4px;height:4px;border-radius:50%;background:var(--teal);animation:bl 2s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.1}}
+.ndate{font-family:var(--mono);font-size:10px;color:var(--muted)}
+
+/* TICKER */
+.ticker{background:var(--bg2);border-bottom:1px solid var(--border);padding:7px 0;overflow:hidden}
+.tk-track{display:flex;animation:tk 70s linear infinite;width:max-content}
+.tk-track:hover{animation-play-state:paused}
+.tki{padding:0 22px;font-family:var(--mono);font-size:10px;color:#50506a;white-space:nowrap;border-right:1px solid var(--border);display:flex;gap:7px;align-items:center}
+@keyframes tk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* RAIL */
+.shell{display:grid;grid-template-columns:1fr 200px;max-width:1180px;margin:0 auto}
+.rail{border-left:1px solid var(--border);padding:28px 20px;position:sticky;top:46px;height:calc(100vh - 46px);overflow-y:auto}
+.rl{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.ri{padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity .15s}
+.ri:hover{opacity:.65}.ri:last-child{border-bottom:none}
+.ri-date{font-family:var(--mono);font-size:9px;color:var(--amber);margin-bottom:3px}
+.ri-title{font-size:11px;color:#8080a0;line-height:1.4;margin-bottom:3px}
+.ri-n{font-family:var(--mono);font-size:9px;color:var(--dim)}
+.ri.today{padding-left:8px;border-left:1px solid var(--amber)}
+
+/* DOC */
+.doc{padding:0 48px 80px;min-width:0}
+
+/* COVER */
+.cover{padding:60px 0 48px;border-bottom:1px solid var(--border);margin-bottom:60px}
+.ck{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.ck::after{content:'';width:24px;height:1px;background:var(--amber);opacity:.35}
+.ct{font-family:var(--serif);font-size:clamp(34px,4.5vw,58px);line-height:1.05;letter-spacing:-.03em;margin-bottom:22px}
+.ct em{font-style:italic;color:var(--amber)}
+.cl{font-size:16px;color:#70708a;line-height:1.82;max-width:660px;margin-bottom:32px}
+.cl strong{color:var(--text);font-weight:400}
+.chls{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:36px}
+.chl{font-family:var(--mono);font-size:9px;padding:3px 11px;border:1px solid rgba(240,180,41,.18);border-radius:20px;color:var(--amber);letter-spacing:.05em}
+.cstats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:5px;overflow:hidden}
+.cs{background:var(--bg2);padding:14px 10px;text-align:center}
+.cs-n{font-family:var(--serif);font-size:28px;color:var(--amber);line-height:1}
+.cs-l{font-family:var(--mono);font-size:8px;color:#50506a;text-transform:uppercase;letter-spacing:.1em;margin-top:3px}
+
+/* SECTION */
+.sec{margin-bottom:64px;scroll-margin-top:60px}
+.sec-num{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+.sec-h{font-family:var(--serif);font-size:26px;letter-spacing:-.02em;line-height:1.15;margin-bottom:6px}
+.sec-sub{font-size:13px;color:#60608a;line-height:1.6;margin-bottom:18px}
+.sec-line{height:1px;margin-bottom:28px;background:linear-gradient(90deg,var(--amber) 0%,transparent 55%);opacity:.3}
+
+/* PROSE */
+.prose{font-size:14px;color:#70708a;line-height:1.9}
+.prose p{margin-bottom:16px}.prose p:last-child{margin-bottom:0}
+.prose strong{color:var(--text);font-weight:500}
+.prose em{color:var(--amber);font-style:normal}
+
+/* CALLOUT */
+.callout{border:1px solid var(--border2);border-left:2px solid var(--amber);background:var(--a2);border-radius:5px;padding:16px 20px;margin:20px 0;font-size:13px;color:#80809a;line-height:1.75}
+.callout strong{color:var(--text);font-weight:500}
+.callout-title{font-family:var(--mono);font-size:9px;color:var(--amber);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+
+/* DIAGRAM */
+.diagram{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:24px 20px;margin:24px 0;overflow-x:auto}
+.diagram .mermaid{display:flex;justify-content:center}
+.diagram .mermaid svg{max-width:100%}
+.diagram-cap{font-family:var(--mono);font-size:9px;color:#50506a;text-align:center;margin-top:12px;letter-spacing:.06em;line-height:1.5}
+
+/* CORR */
+.corr-stack{display:flex;flex-direction:column;gap:14px}
+.corr{border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.corr-h{padding:14px 20px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}
+.corr-ico{width:28px;height:28px;border-radius:4px;font-family:var(--mono);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ico-rag{background:var(--t2);color:var(--teal)}.ico-ml{background:var(--a2);color:var(--amber)}
+.ico-ops{background:var(--p2);color:var(--purple)}.ico-pt{background:var(--g2);color:var(--green)}
+.ico-dl{background:var(--b2);color:var(--blue)}.ico-zh{background:var(--c2);color:var(--coral)}
+.corr-meta{flex:1}
+.corr-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:6px}
+.corr-srcs{display:flex;gap:4px;flex-wrap:wrap}
+.cs2{font-family:var(--mono);font-size:9px;padding:2px 7px;border-radius:2px;background:var(--surface2);color:#60608a}
+.corr-body{padding:16px 20px;font-size:13px;color:#68688a;line-height:1.8;background:var(--bg3)}
+.corr-impact{padding:10px 20px;background:var(--faint);border-top:1px solid var(--border);font-family:var(--mono);font-size:10px;color:#50506a;line-height:1.6}
+.corr-impact span{color:var(--amber)}
+
+/* CRIT */
+.crit-stack{display:flex;flex-direction:column;gap:10px}
+.crit{display:flex;border-radius:5px;overflow:hidden;border:1px solid var(--border)}
+.crit-bar{width:3px;flex-shrink:0}
+.cb-pos{background:var(--teal)}.cb-neg{background:var(--coral)}.cb-neu{background:var(--amber)}.cb-wat{background:var(--blue)}
+.crit-in{padding:14px 18px;background:var(--bg2);flex:1}
+.crit-lbl{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px}
+.cl-pos{color:var(--teal)}.cl-neg{color:var(--coral)}.cl-neu{color:var(--amber)}.cl-wat{color:var(--blue)}
+.crit-txt{font-size:13px;color:#68688a;line-height:1.72}
+.crit-txt strong{color:var(--text);font-weight:500}
+
+/* WATCH LIST */
+.watch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.wcard{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:16px 18px}
+.wcard-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.wcard-ico{width:22px;height:22px;border-radius:3px;font-family:var(--mono);font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wcard-label{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em}
+.wcard-title{font-size:13px;font-weight:500;line-height:1.35;margin-bottom:6px}
+.wcard-txt{font-size:12px;color:#60607a;line-height:1.65}
+
+/* GLOSSARY */
+.gloss{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.gt{background:var(--bg2);padding:13px 18px;display:flex;gap:16px;align-items:baseline}
+.gt-term{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--amber);min-width:200px;flex-shrink:0}
+.gt-def{font-size:12px;color:#68688a;line-height:1.65}
+
+/* LANG BLOCKS */
+.lang-block{margin-bottom:36px}
+.lang-hdr{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.lf{font-family:var(--mono);font-size:10px;font-weight:500;padding:4px 12px;border-radius:3px;letter-spacing:.07em}
+.lf-en{background:var(--b2);color:var(--blue);border:1px solid rgba(77,166,255,.18)}
+.lf-pt{background:var(--t2);color:var(--teal);border:1px solid rgba(0,212,170,.18)}
+.lf-zh{background:var(--a2);color:var(--amber);border:1px solid rgba(240,180,41,.18)}
+.lh-name{font-family:var(--mono);font-size:10px;color:#50506a;letter-spacing:.04em}
+.lh-count{font-family:var(--mono);font-size:10px;color:var(--dim);margin-left:auto}
+
+/* NEWS */
+.news-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.news{background:var(--bg2);padding:22px 26px;transition:background .15s}
+.news:hover{background:var(--bg3)}
+.news.hi{border-left:2px solid var(--amber);padding-left:24px}
+.news-top{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.nb{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:2px}
+.nb-papers{background:var(--b2);color:var(--blue)}.nb-rag{background:var(--t2);color:var(--teal)}
+.nb-ml{background:var(--a2);color:var(--amber)}.nb-arch{background:var(--p2);color:var(--purple)}
+.nb-dl{background:var(--c2);color:var(--coral)}.nb-repos{background:var(--g2);color:var(--green)}
+.nb-videos{background:var(--pk2);color:var(--pink)}.nb-def{background:var(--surface2);color:#60608a}
+.hi-tag{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.1em}
+.news-title{font-family:var(--serif);font-size:18px;line-height:1.28;letter-spacing:-.015em;margin-bottom:4px}
+.news-orig{font-size:11px;color:var(--dim);font-style:italic;margin-bottom:10px}
+.news-sum{font-size:13px;color:#68688a;line-height:1.78;margin-bottom:12px}
+.news-analysis-block{background:var(--bg3);border:1px solid var(--border);border-left:2px solid var(--border2);border-radius:4px;padding:12px 16px;margin-bottom:12px}
+.nab-label{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:#50506a;margin-bottom:5px}
+.nab-txt{font-size:12px;color:#65657a;line-height:1.72}
+.nab-txt strong{color:var(--text);font-weight:500}
+.news-foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nf-src{font-family:var(--mono);font-size:9px;color:var(--dim)}
+.nf-tags{display:flex;gap:3px;flex-wrap:wrap}
+.ntag{font-family:var(--mono);font-size:8px;color:var(--dim);background:rgba(255,255,255,.03);padding:2px 6px;border-radius:2px}
+.nf-link{font-family:var(--mono);font-size:9px;color:var(--amber);opacity:.55;margin-left:auto;transition:opacity .15s}
+.nf-link:hover{opacity:1}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .shell{grid-template-columns:1fr}
+  .rail{display:none}
+  .doc{padding:0 20px 60px}
+  .cover{padding:40px 0 32px}
+  .cstats{grid-template-columns:repeat(3,1fr)}
+  .nav{padding:0 16px}
+  .anchors{display:none}
+}
+
+/* HISTORY VIEW */
+.anc-hist{border-left:1px solid rgba(255,255,255,.06);margin-left:4px;padding-left:16px!important}
+.save-btn{font-family:var(--mono);font-size:9px;padding:4px 12px;border:1px solid rgba(240,180,41,.3);border-radius:3px;background:rgba(240,180,41,.05);color:var(--amber);cursor:pointer;letter-spacing:.06em;transition:all .18s}
+.save-btn:hover{background:rgba(240,180,41,.1);border-color:var(--amber)}
+.save-btn.saved{border-color:#00d4aa;color:#00d4aa;background:rgba(0,212,170,.05)}
+#view-history{padding-bottom:60px}
+.hv-cover{padding:44px 0 32px;border-bottom:1px solid var(--border);margin-bottom:32px}
+.hv-kicker{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.hv-kicker::after{content:'';width:24px;height:1px;background:var(--amber);opacity:.35}
+.hv-title{font-family:var(--serif);font-size:32px;letter-spacing:-.02em;margin-bottom:10px}
+.hv-sub{font-size:14px;color:#50506a;line-height:1.7;max-width:600px;margin-bottom:20px}
+.hv-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:28px}
+.hv-s{background:var(--bg2);padding:13px 10px;text-align:center}
+.hv-s-n{font-family:var(--serif);font-size:24px;color:var(--amber);line-height:1}
+.hv-s-l{font-family:var(--mono);font-size:8px;color:#50506a;text-transform:uppercase;letter-spacing:.1em;margin-top:3px}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.hcard{background:var(--bg2);border:1px solid var(--border);border-radius:5px;overflow:hidden;cursor:pointer;transition:border-color .18s;display:flex;flex-direction:column}
+.hcard:hover{border-color:var(--border2)}
+.hcard.hcard-today{border-top:2px solid var(--amber)}
+.hcard-h{padding:14px 16px;background:var(--bg3);border-bottom:1px solid var(--border)}
+.hcard-date{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.1em;margin-bottom:5px}
+.hcard-title{font-family:var(--serif);font-size:15px;line-height:1.3;margin-bottom:4px}
+.hcard-lead{font-size:11px;color:#50506a;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hcard-b{padding:12px 16px;flex:1}
+.hcard-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.hcard-badge{font-family:var(--mono);font-size:8px;padding:2px 7px;border-radius:2px;background:var(--surface2);color:#50506a}
+.hcard-hls{display:flex;gap:4px;flex-wrap:wrap}
+.hcard-hl{font-family:var(--mono);font-size:8px;padding:1px 6px;border-radius:2px;background:rgba(240,180,41,.07);color:var(--amber);border:1px solid rgba(240,180,41,.14)}
+.hcard-f{padding:9px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.hcard-ft{font-family:var(--mono);font-size:9px;color:#50506a}
+.hcard-open{font-family:var(--mono);font-size:9px;color:var(--amber);opacity:.55;transition:opacity .15s}
+.hcard:hover .hcard-open{opacity:1}
+.hcard-del{font-family:var(--mono);font-size:9px;color:#2e2e46;background:none;border:none;cursor:pointer;transition:color .15s;padding:2px 4px}
+.hcard-del:hover{color:#ff6464}
+.hist-empty{text-align:center;padding:72px 0;color:#50506a}
+.he-i{font-size:28px;margin-bottom:16px;opacity:.25;font-family:var(--mono)}
+.he-t{font-family:var(--serif);font-size:20px;color:var(--muted);margin-bottom:8px}
+.he-s{font-size:13px;line-height:1.65;max-width:340px;margin:0 auto}
+/* READER MODAL */
+.roverlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.9);overflow-y:auto;padding:24px 16px}
+.roverlay.open{display:block}
+.rwrap{max-width:860px;margin:0 auto;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;overflow:hidden}
+.rhead{padding:18px 26px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(9,9,15,.98);backdrop-filter:blur(16px)}
+.rhead-left{flex:1}
+.rhead-date{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.1em;margin-bottom:4px}
+.rhead-title{font-family:var(--serif);font-size:16px;line-height:1.3}
+.rclose{font-family:var(--mono);font-size:16px;color:#50506a;background:none;border:none;cursor:pointer;padding:4px;transition:color .15s}
+.rclose:hover{color:var(--text)}
+.rbody{padding:26px}
+.rbody .cover-like{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.rbody .cover-like h2{font-family:var(--serif);font-size:28px;letter-spacing:-.02em;margin-bottom:10px;line-height:1.15}
+.rbody .cover-like h2 em{color:var(--amber);font-style:italic}
+.rbody .cover-like p{font-size:14px;color:#70708a;line-height:1.8;max-width:640px}
+.r-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:24px}
+.r-s{background:var(--bg3);padding:11px 8px;text-align:center}
+.r-s-n{font-family:var(--serif);font-size:20px;color:var(--amber);line-height:1}
+.r-s-l{font-family:var(--mono);font-size:8px;color:#50506a;text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+.rsec{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--border)}
+.rsec:last-child{border-bottom:none}
+.rsec-label{font-family:var(--mono);font-size:9px;color:var(--amber);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
+.exec-mini p{font-size:13px;color:#70708a;line-height:1.8;margin-bottom:10px}
+.exec-mini p:last-child{margin-bottom:0}
+.exec-mini b{color:var(--text);font-weight:500}
+.corr-mini{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:12px 14px;margin-bottom:7px}
+.cm-t{font-size:13px;font-weight:500;line-height:1.3;margin-bottom:5px}
+.cm-b{font-size:12px;color:#70708a;line-height:1.65}
+.crit-r{display:flex;gap:0;border-radius:3px;overflow:hidden;border:1px solid var(--border);margin-bottom:6px}
+.cr-bar{width:3px;flex-shrink:0}
+.cr-pos{background:var(--teal)}.cr-neg{background:var(--coral)}.cr-neu{background:var(--amber)}
+.cr-in{padding:9px 13px;flex:1;background:var(--bg2)}
+.cr-lbl{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
+.crl-pos{color:var(--teal)}.crl-neg{color:var(--coral)}.crl-neu{color:var(--amber)}
+.cr-txt{font-size:12px;color:#70708a;line-height:1.65}
+.news-r{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:11px 14px;margin-bottom:6px}
+.nr-top{display:flex;gap:5px;margin-bottom:5px;flex-wrap:wrap}
+.nr-t{font-size:13px;font-weight:500;line-height:1.3;margin-bottom:4px}
+.nr-s{font-size:12px;color:#70708a;line-height:1.65}
+
+</style>
+</head>
+<body>
+
+
+<div id="loading-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(4,4,10,.92);align-items:center;justify-content:center;flex-direction:column;gap:16px">
+  <div style="font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:.14em;text-transform:uppercase">Carregando briefing...</div>
+  <div style="display:flex;gap:5px">
+    <div style="width:5px;height:5px;border-radius:50%;background:var(--amber);animation:bl 1.4s infinite"></div>
+    <div style="width:5px;height:5px;border-radius:50%;background:var(--amber);animation:bl 1.4s .2s infinite"></div>
+    <div style="width:5px;height:5px;border-radius:50%;background:var(--amber);animation:bl 1.4s .4s infinite"></div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="logo">Capi<b>News</b></div>
+  <div class="anchors">
+    <button class="anc on" onclick="goTo('cover')">Capa</button>
+    <button class="anc on" id="anc-report" onclick="showView('report')">Relatório</button>
+    <button class="anc on" id="anc-report" onclick="showView('report')">Relatório</button>
+    <button class="anc" onclick="goTo('exec')">Resumo</button>
+    <button class="anc" onclick="goTo('diagrams')">Diagramas</button>
+    <button class="anc" onclick="goTo('corr')">Correlações</button>
+    <button class="anc" onclick="goTo('news')">Notícias</button>
+    <button class="anc" onclick="goTo('crit')">Crítica</button>
+    <button class="anc" onclick="goTo('watch')">Monitorar</button>
+    <button class="anc" onclick="goTo('gloss')">Glossário</button>
+    <button class="anc anc-hist" id="anc-hist" onclick="showView('history')">Histórico</button>
+  </div>
+  <div class="nav-r">
+    <button class="save-btn" id="save-btn" onclick="saveReport()" title="Salvar relatório de hoje no histórico">Salvar relatório</button>
+    <div class="live"><div class="ldot"></div>Daily</div>
+    <div class="ndate" id="ndate"></div>
+  </div>
+</nav>
+
+<div class="ticker"><div class="tk-track" id="ticker"></div></div>
+
+<div class="shell">
+<div class="doc">
+<div id="view-report">
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="ck" id="ck">Relatório de inteligência · Edição diária</div>
+  <h1 class="ct" id="ct">Loading <em>intelligence...</em></h1>
+  <p class="cl" id="cl"></p>
+  <div class="chls" id="chls"></div>
+  <div class="cstats">
+    <div class="cs"><div class="cs-n" id="cs-t">—</div><div class="cs-l">Fontes</div></div>
+    <div class="cs"><div class="cs-n" id="cs-e">—</div><div class="cs-l">EN</div></div>
+    <div class="cs"><div class="cs-n" id="cs-p">—</div><div class="cs-l">PT</div></div>
+    <div class="cs"><div class="cs-n" id="cs-z">—</div><div class="cs-l">ZH</div></div>
+    <div class="cs"><div class="cs-n" id="cs-h">—</div><div class="cs-l">Destaques</div></div>
+  </div>
+</div>
+
+<!-- 01 EXEC -->
+<div class="sec" id="exec">
+  <div class="sec-num">01 — RESUMO EXECUTIVO</div>
+  <h2 class="sec-h">O que aconteceu hoje e por que importa</h2>
+  <div class="sec-sub">Análise condensada das principais publicações das últimas 48h nas três frentes de idioma.</div>
+  <div class="sec-line"></div>
+  <div id="exec-body"></div>
+</div>
+
+<!-- 02 DIAGRAMS -->
+<div class="sec" id="diagrams">
+  <div class="sec-num">02 — SÍNTESE VISUAL</div>
+  <h2 class="sec-h">Pipeline e mapa temático das publicações</h2>
+  <div class="sec-sub">Os diagramas abaixo sintetizam como as técnicas publicadas hoje formam um sistema coerente — não itens isolados.</div>
+  <div class="sec-line"></div>
+  <div class="prose" style="margin-bottom:20px"><p>O fluxograma integra as principais contribuições técnicas do dia em um pipeline de produção RAG completo. Cada nó representa uma técnica ou ferramenta publicada hoje — a arquitetura resultante é uma proposição de stack real, não teórica.</p></div>
+  <div class="diagram"><div class="mermaid" id="diag1"></div><div class="diagram-cap" id="cap1"></div></div>
+  <div class="prose" style="margin:20px 0"><p>O mapa mental abaixo organiza as publicações por área de impacto, revelando a concentração temática do dia e os pontos de convergência entre pesquisa acadêmica, engenharia de ferramentas e ecossistema local.</p></div>
+  <div class="diagram"><div class="mermaid" id="diag2"></div><div class="diagram-cap">Agrupamento temático — distribuição das publicações por área de impacto estratégico</div></div>
+  <div class="prose" style="margin:20px 0"><p>O diagrama de sequência abaixo mostra o fluxo temporal de adoção: como as técnicas publicadas hoje se encadeiam em uma jornada de implementação para times de engenharia de IA.</p></div>
+  <div class="diagram"><div class="mermaid" id="diag3"></div><div class="diagram-cap">Jornada de adoção — sequência recomendada de implementação das técnicas do dia</div></div>
+</div>
+
+<!-- 03 CORR -->
+<div class="sec" id="corr">
+  <div class="sec-num">03 — CORRELAÇÕES PROFUNDAS</div>
+  <h2 class="sec-h">Conexões não óbvias entre as fontes</h2>
+  <div class="sec-sub">Cada bloco identifica uma convergência entre publicações independentes. As correlações são o produto mais valioso deste relatório — o que fontes isoladas não revelam.</div>
+  <div class="sec-line"></div>
+  <div class="corr-stack" id="corr-list"></div>
+</div>
+
+<!-- 04 NEWS -->
+<div class="sec" id="news">
+  <div class="sec-num">04 — NOTÍCIAS COMPLETAS COM ANÁLISE</div>
+  <h2 class="sec-h">Todas as fontes analisadas hoje</h2>
+  <div class="sec-sub">Cada item inclui: resumo contextualizado, análise de impacto prático e indicação de relevância para o campo.</div>
+  <div class="sec-line"></div>
+  <div id="news-blocks"></div>
+</div>
+
+<!-- 05 CRIT -->
+<div class="sec" id="crit">
+  <div class="sec-num">05 — ANÁLISE CRÍTICA</div>
+  <h2 class="sec-h">O que avança, o que é hype, o que questionar</h2>
+  <div class="sec-sub">Avaliação honesta das publicações do dia: resultados sólidos, limitações não declaradas e riscos de adoção precoce.</div>
+  <div class="sec-line"></div>
+  <div class="crit-stack" id="crit-list"></div>
+</div>
+
+<!-- 06 WATCH -->
+<div class="sec" id="watch">
+  <div class="sec-num">06 — O QUE MONITORAR</div>
+  <h2 class="sec-h">Sinais fracos e próximos movimentos</h2>
+  <div class="sec-sub">Tendências emergentes identificadas hoje que ainda não viraram notícia, mas merecem atenção nos próximos 7-30 dias.</div>
+  <div class="sec-line"></div>
+  <div class="watch-grid" id="watch-grid"></div>
+</div>
+
+<!-- 07 GLOSS -->
+<div class="sec" id="gloss">
+  <div class="sec-num">07 — GLOSSÁRIO DO DIA</div>
+  <h2 class="sec-h">Termos e conceitos-chave das publicações</h2>
+  <div class="sec-sub">Definições contextualizadas dos termos técnicos que apareceram nas fontes de hoje.</div>
+  <div class="sec-line"></div>
+  <div class="gloss" id="gloss-list"></div>
+</div>
+
+</div><!-- /view-report -->
+
+<!-- HISTORY VIEW -->
+<div id="view-history" style="display:none">
+</div><!-- /view-history -->
+
+</div><!-- /doc -->
+
+<!-- HISTORY RAIL -->
+<aside class="rail">
+  <div class="rl">Histórico</div>
+  <div id="rail-hist"></div>
+</aside>
+</div><!-- /shell -->
+
+<script>
+
+// ─── CONFIG — altere para o seu repositório ───────────────────────
+const GITHUB_USER = 'skarL007';
+const GITHUB_REPO = 'capinews-data';
+const GITHUB_BRANCH = 'main';
+const GITHUB_RAW = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
+// ──────────────────────────────────────────────────────────────────
+mermaid.initialize({
+  startOnLoad:false,theme:'dark',
+  themeVariables:{
+    background:'#09090f',primaryColor:'#13131c',primaryTextColor:'#e6e6ef',
+    primaryBorderColor:'#2e2e46',lineColor:'#f0b429',secondaryColor:'#0e0e16',
+    tertiaryColor:'#04040a',edgeLabelBackground:'#09090f',
+    fontFamily:'IBM Plex Mono,monospace',fontSize:'11px',
+  },
+});
+
+const CAT={
+  papers:{l:'Papers',c:'nb-papers'},rag:{l:'RAG & LLMs',c:'nb-rag'},
+  ml:{l:'Machine Learning',c:'nb-ml'},architecture:{l:'Arquitetura',c:'nb-arch'},
+  deeplearning:{l:'Deep Learning',c:'nb-dl'},repos:{l:'Repositórios',c:'nb-repos'},
+  videos:{l:'Vídeos',c:'nb-videos'},
+};
+
+const D={
+  date:new Date().toISOString().split('T')[0],
+  headline:'Convergência em RAG Confiável e Modelos Especializados Redefine o Stack de IA em Produção',
+  lead:`<strong>Três laboratórios independentes</strong> — Tsinghua (CN), Stanford (US) e USP/UNICAMP (BR) — publicaram hoje resultados que, quando lidos em conjunto, descrevem o mesmo ponto de inflexão: a era de "funciona no notebook" está encerrando e a de "funciona em produção com confiabilidade mensurável" está começando. O fio condutor é a convergência entre técnicas de RAG adaptativo, verificação anti-alucinação e ferramentas de observabilidade que finalmente atingem maturidade de produção.`,
+  highlights:['RAG Adaptativo arXiv','Anti-Alucinação THUNLP 40%','Phi-4 Mini 3.8B Multimodal','LightRAG v2.0 Graph','FlashAttention-3 H100 2.1x','Milvus 2.5 BM25 Nativo','Benchmark PT-BR Pioneiro','MegaScale ByteDance Open'],
+  lang_counts:{en:10,pt:5,zh:8},
+
+  exec_paragraphs:[
+    `O evento mais significativo desta edição é a publicação simultânea — e aparentemente não coordenada — de três técnicas distintas que atacam o mesmo problema central do RAG em produção: <strong>a degradação de qualidade causada por chunks descontextualizados</strong>. O RAG Adaptativo (arXiv), o Contextual Retrieval (Anthropic) e o LightRAG v2.0 (GitHub) chegam ao mesmo diagnóstico por caminhos diferentes. Isso não é coincidência — é sinal de que a comunidade convergiu para um problema bem definido e que soluções estão amadurecendo em paralelo.`,
+    `O segundo eixo dominante do dia é a <strong>verificação de confiabilidade durante inferência</strong>. O paper da Tsinghua University sobre cross-verification em tempo de execução é o trabalho mais rigoroso publicado nesta área em meses. Diferente de abordagens anteriores que requerem retreinamento ou dados anotados, a técnica funciona como um módulo plug-and-play sobre qualquer LLM existente. A redução de 40% em alucinações com overhead de apenas 15% de latência é um tradeoff que a maioria dos sistemas de produção aceitaria imediatamente.`,
+    `No ecossistema de ferramentas, três releases simultâneos — LightRAG v2.0, Instructor v1.5 e Milvus 2.5 — formam pela primeira vez uma <strong>stack RAG completa e estável em todas as camadas</strong>: orquestração, structured outputs e armazenamento vetorial com busca híbrida. A maturidade simultânea dessas três camadas é o sinal mais claro de que o período experimental do RAG open-source terminou. Times que ainda estão avaliando qual stack adotar têm agora uma resposta definitiva.`,
+    `A frente de <strong>modelos compactos especializados</strong> ganhou três datapoints relevantes hoje: Phi-4 Mini (3.8B, visão+texto), Qwen2.5-VL-72B (visão, SOTA em ZH) e DeepSeek-Coder-V3 (código, 92.3% HumanEval). O padrão emergente é inequívoco — especialização supera generalização em domínios específicos, e o custo de inferência favorece modelos focados em 3-10x. Para arquitetos de sistemas, a decisão de design deixa de ser "qual modelo usar" e passa a ser "como orquestrar múltiplos especialistas".`,
+    `Finalmente, o <strong>ecossistema brasileiro de IA</strong> atingiu hoje um marco: a publicação do primeiro benchmark nacional de LLMs para código com documentação em PT-BR (USP/UNICAMP), combinada com conteúdo técnico de nível sênior em vídeo no canal monitorado, representa a transição da comunidade local de consumidora para produtora de conhecimento original. Para times de IA operando no mercado brasileiro, esses recursos reduzem substancialmente a necessidade de adaptação de contexto de fontes em inglês.`,
+  ],
+
+  callout:`As publicações de hoje, em conjunto, descrevem um blueprint completo para sistemas RAG confiáveis em 2026: RAG Adaptativo para recuperação eficiente + Contextual Retrieval para indexação rica + LightRAG para queries complexas + Cross-verification THUNLP para eliminar alucinações + Milvus 2.5 para storage híbrido + Instructor v1.5 para outputs estruturados. Pela primeira vez, todos esses componentes estão maduros e open-source simultaneamente.`,
+
+  diag1:`graph TD
+    A([Query]) --> B{Complexity\nClassifier}
+    B -->|Simple| C[Direct Retrieval\n3 fixed chunks]
+    B -->|Medium| D[Adaptive RAG\n5-12 dynamic chunks]
+    B -->|Complex| E[LightRAG v2.0\nKnowledge Graph]
+    C --> F[Contextual Retrieval\nAnthropic]
+    D --> F
+    E --> F
+    F --> G[Milvus 2.5\nBM25 + Vector Hybrid]
+    G --> H[LLM Inference\nFlashAttention-3]
+    H --> I{THUNLP\nAnti-Hallucination}
+    I -->|Valid| J[Instructor v1.5\nStructured Output]
+    I -->|Error| K[Re-query\nCorrection Loop]
+    K --> H
+    J --> L([Final Response - Reliable])
+    style A fill:#13131c,stroke:#f0b429,color:#e6e6ef
+    style L fill:#13131c,stroke:#00d4aa,color:#e6e6ef
+    style I fill:#13131c,stroke:#f0b429,color:#e6e6ef
+    style K fill:#13131c,stroke:#ff6464,color:#e6e6ef`,!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CapiNews — Relatório Completo de Inteligência em IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+:root{
+  --bg:#04040a;--bg2:#09090f;--bg3:#0e0e16;--surface:#13131c;--surface2:#1a1a25;
+  --border:rgba(255,255,255,0.055);--border2:rgba(255,255,255,0.1);--border3:rgba(255,255,255,0.16);
+  --text:#e6e6ef;--muted:#7070868;--dim:#2e2e46;--faint:#111120;
+  --amber:#f0b429;--a2:rgba(240,180,41,.07);--a3:rgba(240,180,41,.14);
+  --teal:#00d4aa;--t2:rgba(0,212,170,.07);
+  --coral:#ff6464;--c2:rgba(255,100,100,.07);
+  --blue:#4da6ff;--b2:rgba(77,166,255,.07);
+  --purple:#b07fff;--p2:rgba(176,127,255,.07);
+  --green:#4dbd78;--g2:rgba(77,189,120,.07);
+  --pink:#ff64b4;--pk2:rgba(255,100,180,.07);
+  --mono:'IBM Plex Mono',monospace;
+  --serif:'DM Serif Display',serif;
+  --sans:'DM Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.65;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--dim)}
+
+/* NAV */
+.nav{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;background:rgba(4,4,10,.96);backdrop-filter:blur(20px)}
+.logo{font-family:var(--serif);font-size:18px;letter-spacing:-.02em}.logo b{color:var(--amber)}
+.anchors{display:flex;gap:0;overflow-x:auto}
+.anc{padding:5px 13px;background:transparent;border:none;font-size:11px;color:var(--muted);cursor:pointer;font-family:var(--mono);letter-spacing:.04em;white-space:nowrap;transition:color .15s;border-bottom:2px solid transparent}
+.anc:hover{color:var(--text)}.anc.on{color:var(--amber);border-bottom-color:var(--amber)}
+.nav-r{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.live{font-family:var(--mono);font-size:9px;color:var(--teal);letter-spacing:.1em;display:flex;align-items:center;gap:4px}
+.ldot{width:4px;height:4px;border-radius:50%;background:var(--teal);animation:bl 2s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.1}}
+.ndate{font-family:var(--mono);font-size:10px;color:var(--muted)}
+
+/* TICKER */
+.ticker{background:var(--bg2);border-bottom:1px solid var(--border);padding:7px 0;overflow:hidden}
+.tk-track{display:flex;animation:tk 70s linear infinite;width:max-content}
+.tk-track:hover{animation-play-state:paused}
+.tki{padding:0 22px;font-family:var(--mono);font-size:10px;color:#50506a;white-space:nowrap;border-right:1px solid var(--border);display:flex;gap:7px;align-items:center}
+@keyframes tk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* RAIL */
+.shell{display:grid;grid-template-columns:1fr 200px;max-width:1180px;margin:0 auto}
+.rail{border-left:1px solid var(--border);padding:28px 20px;position:sticky;top:46px;height:calc(100vh - 46px);overflow-y:auto}
+.rl{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.ri{padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity .15s}
+.ri:hover{opacity:.65}.ri:last-child{border-bottom:none}
+.ri-date{font-family:var(--mono);font-size:9px;color:var(--amber);margin-bottom:3px}
+.ri-title{font-size:11px;color:#8080a0;line-height:1.4;margin-bottom:3px}
+.ri-n{font-family:var(--mono);font-size:9px;color:var(--dim)}
+.ri.today{padding-left:8px;border-left:1px solid var(--amber)}
+
+/* DOC */
+.doc{padding:0 48px 80px;min-width:0}
+
+/* COVER */
+.cover{padding:60px 0 48px;border-bottom:1px solid var(--border);margin-bottom:60px}
+.ck{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.ck::after{content:'';width:24px;height:1px;background:var(--amber);opacity:.35}
+.ct{font-family:var(--serif);font-size:clamp(34px,4.5vw,58px);line-height:1.05;letter-spacing:-.03em;margin-bottom:22px}
+.ct em{font-style:italic;color:var(--amber)}
+.cl{font-size:16px;color:#70708a;line-height:1.82;max-width:660px;margin-bottom:32px}
+.cl strong{color:var(--text);font-weight:400}
+.chls{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:36px}
+.chl{font-family:var(--mono);font-size:9px;padding:3px 11px;border:1px solid rgba(240,180,41,.18);border-radius:20px;color:var(--amber);letter-spacing:.05em}
+.cstats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:5px;overflow:hidden}
+.cs{background:var(--bg2);padding:14px 10px;text-align:center}
+.cs-n{font-family:var(--serif);font-size:28px;color:var(--amber);line-height:1}
+.cs-l{font-family:var(--mono);font-size:8px;color:#50506a;text-transform:uppercase;letter-spacing:.1em;margin-top:3px}
+
+/* SECTION */
+.sec{margin-bottom:64px;scroll-margin-top:60px}
+.sec-num{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+.sec-h{font-family:var(--serif);font-size:26px;letter-spacing:-.02em;line-height:1.15;margin-bottom:6px}
+.sec-sub{font-size:13px;color:#60608a;line-height:1.6;margin-bottom:18px}
+.sec-line{height:1px;margin-bottom:28px;background:linear-gradient(90deg,var(--amber) 0%,transparent 55%);opacity:.3}
+
+/* PROSE */
+.prose{font-size:14px;color:#70708a;line-height:1.9}
+.prose p{margin-bottom:16px}.prose p:last-child{margin-bottom:0}
+.prose strong{color:var(--text);font-weight:500}
+.prose em{color:var(--amber);font-style:normal}
+
+/* CALLOUT */
+.callout{border:1px solid var(--border2);border-left:2px solid var(--amber);background:var(--a2);border-radius:5px;padding:16px 20px;margin:20px 0;font-size:13px;color:#80809a;line-height:1.75}
+.callout strong{color:var(--text);font-weight:500}
+.callout-title{font-family:var(--mono);font-size:9px;color:var(--amber);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+
+/* DIAGRAM */
+.diagram{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:24px 20px;margin:24px 0;overflow-x:auto}
+.diagram .mermaid{display:flex;justify-content:center}
+.diagram .mermaid svg{max-width:100%}
+.diagram-cap{font-family:var(--mono);font-size:9px;color:#50506a;text-align:center;margin-top:12px;letter-spacing:.06em;line-height:1.5}
+
+/* CORR */
+.corr-stack{display:flex;flex-direction:column;gap:14px}
+.corr{border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.corr-h{padding:14px 20px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}
+.corr-ico{width:28px;height:28px;border-radius:4px;font-family:var(--mono);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ico-rag{background:var(--t2);color:var(--teal)}.ico-ml{background:var(--a2);color:var(--amber)}
+.ico-ops{background:var(--p2);color:var(--purple)}.ico-pt{background:var(--g2);color:var(--green)}
+.ico-dl{background:var(--b2);color:var(--blue)}.ico-zh{background:var(--c2);color:var(--coral)}
+.corr-meta{flex:1}
+.corr-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:6px}
+.corr-srcs{display:flex;gap:4px;flex-wrap:wrap}
+.cs2{font-family:var(--mono);font-size:9px;padding:2px 7px;border-radius:2px;background:var(--surface2);color:#60608a}
+.corr-body{padding:16px 20px;font-size:13px;color:#68688a;line-height:1.8;background:var(--bg3)}
+.corr-impact{padding:10px 20px;background:var(--faint);border-top:1px solid var(--border);font-family:var(--mono);font-size:10px;color:#50506a;line-height:1.6}
+.corr-impact span{color:var(--amber)}
+
+/* CRIT */
+.crit-stack{display:flex;flex-direction:column;gap:10px}
+.crit{display:flex;border-radius:5px;overflow:hidden;border:1px solid var(--border)}
+.crit-bar{width:3px;flex-shrink:0}
+.cb-pos{background:var(--teal)}.cb-neg{background:var(--coral)}.cb-neu{background:var(--amber)}.cb-wat{background:var(--blue)}
+.crit-in{padding:14px 18px;background:var(--bg2);flex:1}
+.crit-lbl{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px}
+.cl-pos{color:var(--teal)}.cl-neg{color:var(--coral)}.cl-neu{color:var(--amber)}.cl-wat{color:var(--blue)}
+.crit-txt{font-size:13px;color:#68688a;line-height:1.72}
+.crit-txt strong{color:var(--text);font-weight:500}
+
+/* WATCH LIST */
+.watch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.wcard{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:16px 18px}
+.wcard-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.wcard-ico{width:22px;height:22px;border-radius:3px;font-family:var(--mono);font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wcard-label{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em}
+.wcard-title{font-size:13px;font-weight:500;line-height:1.35;margin-bottom:6px}
+.wcard-txt{font-size:12px;color:#60607a;line-height:1.65}
+
+/* GLOSSARY */
+.gloss{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.gt{background:var(--bg2);padding:13px 18px;display:flex;gap:16px;align-items:baseline}
+.gt-term{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--amber);min-width:200px;flex-shrink:0}
+.gt-def{font-size:12px;color:#68688a;line-height:1.65}
+
+/* LANG BLOCKS */
+.lang-block{margin-bottom:36px}
+.lang-hdr{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.lf{font-family:var(--mono);font-size:10px;font-weight:500;padding:4px 12px;border-radius:3px;letter-spacing:.07em}
+.lf-en{background:var(--b2);color:var(--blue);border:1px solid rgba(77,166,255,.18)}
+.lf-pt{background:var(--t2);color:var(--teal);border:1px solid rgba(0,212,170,.18)}
+.lf-zh{background:var(--a2);color:var(--amber);border:1px solid rgba(240,180,41,.18)}
+.lh-name{font-family:var(--mono);font-size:10px;color:#50506a;letter-spacing:.04em}
+.lh-count{font-family:var(--mono);font-size:10px;color:var(--dim);margin-left:auto}
+
+/* NEWS */
+.news-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.news{background:var(--bg2);padding:22px 26px;transition:background .15s}
+.news:hover{background:var(--bg3)}
+.news.hi{border-left:2px solid var(--amber);padding-left:24px}
+.news-top{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.nb{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:2px}
+.nb-papers{background:var(--b2);color:var(--blue)}.nb-rag{background:var(--t2);color:var(--teal)}
+.nb-ml{background:var(--a2);color:var(--amber)}.nb-arch{background:var(--p2);color:var(--purple)}
+.nb-dl{background:var(--c2);color:var(--coral)}.nb-repos{background:var(--g2);color:var(--green)}
+.nb-videos{background:var(--pk2);color:var(--pink)}.nb-def{background:var(--surface2);color:#60608a}
+.hi-tag{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.1em}
+.news-title{font-family:var(--serif);font-size:18px;line-height:1.28;letter-spacing:-.015em;margin-bottom:4px}
+.news-orig{font-size:11px;color:var(--dim);font-style:italic;margin-bottom:10px}
+.news-sum{font-size:13px;color:#68688a;line-height:1.78;margin-bottom:12px}
+.news-analysis-block{background:var(--bg3);border:1px solid var(--border);border-left:2px solid var(--border2);border-radius:4px;padding:12px 16px;margin-bottom:12px}
+.nab-label{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:#50506a;margin-bottom:5px}
+.nab-txt{font-size:12px;color:#65657a;line-height:1.72}
+.nab-txt strong{color:var(--text);font-weight:500}
+.news-foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nf-src{font-family:var(--mono);font-size:9px;color:var(--dim)}
+.nf-tags{display:flex;gap:3px;flex-wrap:wrap}
+.ntag{font-family:var(--mono);font-size:8px;color:var(--dim);background:rgba(255,255,255,.03);padding:2px 6px;border-radius:2px}
+.nf-link{font-family:var(--mono);font-size:9px;color:var(--amber);opacity:.55;margin-left:auto;transition:opacity .15s}
+.nf-link:hover{opacity:1}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .shell{grid-template-columns:1fr}
+  .rail{display:none}
+  .doc{padding:0 20px 60px}
+  .cover{padding:40px 0 32px}
+  .cstats{grid-template-columns:repeat(3,1fr)}
+  .nav{padding:0 16px}
+  .anchors{display:none}
+}
+
+/* HISTORY VIEW */
+.anc-hist{border-left:1px solid rgba(255,255,255,.06);margin-left:4px;padding-left:16px!important}
+.save-btn{font-family:var(--mono);font-size:9px;padding:4px 12px;border:1px solid rgba(240,180,41,.3);border-radius:3px;background:rgba(240,180,41,.05);color:var(--amber);cursor:pointer;letter-spacing:.06em;transition:all .18s}
+.save-btn:hover{background:rgba(240,180,41,.1);border-color:var(--amber)}
+.save-btn.saved{border-color:#00d4aa;color:#00d4aa;background:rgba(0,212,170,.05)}
+#view-history{padding-bottom:60px}
+.hv-cover{padding:44px 0 32px;border-bottom:1px solid var(--border);margin-bottom:32px}
+.hv-kicker{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.hv-kicker::after{content:'';width:24px;height:1px;background:var(--amber);opacity:.35}
+.hv-title{font-family:var(--serif);font-size:32px;letter-spacing:-.02em;margin-bottom:10px}
+.hv-sub{font-size:14px;color:#50506a;line-height:1.7;max-width:600px;margin-bottom:20px}
+.hv-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:28px}
+.hv-s{background:var(--bg2);padding:13px 10px;text-align:center}
+.hv-s-n{font-family:var(--serif);font-size:24px;color:var(--amber);line-height:1}
+.hv-s-l{font-family:var(--mono);font-size:8px;color:#50506a;text-transform:uppercase;letter-spacing:.1em;margin-top:3px}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.hcard{background:var(--bg2);border:1px solid var(--border);border-radius:5px;overflow:hidden;cursor:pointer;transition:border-color .18s;display:flex;flex-direction:column}
+.hcard:hover{border-color:var(--border2)}
+.hcard.hcard-today{border-top:2px solid var(--amber)}
+.hcard-h{padding:14px 16px;background:var(--bg3);border-bottom:1px solid var(--border)}
+.hcard-date{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.1em;margin-bottom:5px}
+.hcard-title{font-family:var(--serif);font-size:15px;line-height:1.3;margin-bottom:4px}
+.hcard-lead{font-size:11px;color:#50506a;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hcard-b{padding:12px 16px;flex:1}
+.hcard-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.hcard-badge{font-family:var(--mono);font-size:8px;padding:2px 7px;border-radius:2px;background:var(--surface2);color:#50506a}
+.hcard-hls{display:flex;gap:4px;flex-wrap:wrap}
+.hcard-hl{font-family:var(--mono);font-size:8px;padding:1px 6px;border-radius:2px;background:rgba(240,180,41,.07);color:var(--amber);border:1px solid rgba(240,180,41,.14)}
+.hcard-f{padding:9px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.hcard-ft{font-family:var(--mono);font-size:9px;color:#50506a}
+.hcard-open{font-family:var(--mono);font-size:9px;color:var(--amber);opacity:.55;transition:opacity .15s}
+.hcard:hover .hcard-open{opacity:1}
+.hcard-del{font-family:var(--mono);font-size:9px;color:#2e2e46;background:none;border:none;cursor:pointer;transition:color .15s;padding:2px 4px}
+.hcard-del:hover{color:#ff6464}
+.hist-empty{text-align:center;padding:72px 0;color:#50506a}
+.he-i{font-size:28px;margin-bottom:16px;opacity:.25;font-family:var(--mono)}
+.he-t{font-family:var(--serif);font-size:20px;color:var(--muted);margin-bottom:8px}
+.he-s{font-size:13px;line-height:1.65;max-width:340px;margin:0 auto}
+/* READER MODAL */
+.roverlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.9);overflow-y:auto;padding:24px 16px}
+.roverlay.open{display:block}
+.rwrap{max-width:860px;margin:0 auto;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;overflow:hidden}
+.rhead{padding:18px 26px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(9,9,15,.98);backdrop-filter:blur(16px)}
+.rhead-left{flex:1}
+.rhead-date{font-family:var(--mono);font-size:9px;color:var(--amber);letter-spacing:.1em;margin-bottom:4px}
+.rhead-title{font-family:var(--serif);font-size:16px;line-height:1.3}
+.rclose{font-family:var(--mono);font-size:16px;color:#50506a;background:none;border:none;cursor:pointer;padding:4px;transition:color .15s}
+.rclose:hover{color:var(--text)}
+.rbody{padding:26px}
+.rbody .cover-like{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.rbody .cover-like h2{font-family:var(--serif);font-size:28px;letter-spacing:-.02em;margin-bottom:10px;line-height:1.15}
+.rbody .cover-like h2 em{color:var(--amber);font-style:italic}
+.rbody .cover-like p{font-size:14px;color:#70708a;line-height:1.8;max-width:640px}
+.r-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:24px}
+.r-s{background:var(--bg3);padding:11px 8px;text-align:center}
+.r-s-n{font-family:var(--serif);font-size:20px;color:var(--amber);line-height:1}
+.r-s-l{font-family:var(--mono);font-size:8px;color:#50506a;text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+.rsec{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--border)}
+.rsec:last-child{border-bottom:none}
+.rsec-label{font-family:var(--mono);font-size:9px;color:var(--amber);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
+.exec-mini p{font-size:13px;color:#70708a;line-height:1.8;margin-bottom:10px}
+.exec-mini p:last-child{margin-bottom:0}
+.exec-mini b{color:var(--text);font-weight:500}
+.corr-mini{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:12px 14px;margin-bottom:7px}
+.cm-t{font-size:13px;font-weight:500;line-height:1.3;margin-bottom:5px}
+.cm-b{font-size:12px;color:#70708a;line-height:1.65}
+.crit-r{display:flex;gap:0;border-radius:3px;overflow:hidden;border:1px solid var(--border);margin-bottom:6px}
+.cr-bar{width:3px;flex-shrink:0}
+.cr-pos{background:var(--teal)}.cr-neg{background:var(--coral)}.cr-neu{background:var(--amber)}
+.cr-in{padding:9px 13px;flex:1;background:var(--bg2)}
+.cr-lbl{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
+.crl-pos{color:var(--teal)}.crl-neg{color:var(--coral)}.crl-neu{color:var(--amber)}
+.cr-txt{font-size:12px;color:#70708a;line-height:1.65}
+.news-r{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:11px 14px;margin-bottom:6px}
+.nr-top{display:flex;gap:5px;margin-bottom:5px;flex-wrap:wrap}
+.nr-t{font-size:13px;font-weight:500;line-height:1.3;margin-bottom:4px}
+.nr-s{font-size:12px;color:#70708a;line-height:1.65}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">Capi<b>News</b></div>
+  <div class="anchors">
+    <button class="anc on" onclick="goTo('cover')">Capa</button>
+    <button class="anc on" id="anc-report" onclick="showView('report')">Relatório</button>
+    <button class="anc on" id="anc-report" onclick="showView('report')">Relatório</button>
+    <button class="anc" onclick="goTo('exec')">Resumo</button>
+    <button class="anc" onclick="goTo('diagrams')">Diagramas</button>
+    <button class="anc" onclick="goTo('corr')">Correlações</button>
+    <button class="anc" onclick="goTo('news')">Notícias</button>
+    <button class="anc" onclick="goTo('crit')">Crítica</button>
+    <button class="anc" onclick="goTo('watch')">Monitorar</button>
+    <button class="anc" onclick="goTo('gloss')">Glossário</button>
+    <button class="anc anc-hist" id="anc-hist" onclick="showView('history')">Histórico</button>
+  </div>
+  <div class="nav-r">
+    <button class="save-btn" id="save-btn" onclick="saveReport()" title="Salvar relatório de hoje no histórico">Salvar relatório</button>
+    <div class="live"><div class="ldot"></div>Daily</div>
+    <div class="ndate" id="ndate"></div>
+  </div>
+</nav>
+
+<div class="ticker"><div class="tk-track" id="ticker"></div></div>
+
+<div class="shell">
+<div class="doc">
+<div id="view-report">
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="ck" id="ck">Relatório de inteligência · Edição diária</div>
+  <h1 class="ct" id="ct">Loading <em>intelligence...</em></h1>
+  <p class="cl" id="cl"></p>
+  <div class="chls" id="chls"></div>
+  <div class="cstats">
+    <div class="cs"><div class="cs-n" id="cs-t">—</div><div class="cs-l">Fontes</div></div>
+    <div class="cs"><div class="cs-n" id="cs-e">—</div><div class="cs-l">EN</div></div>
+    <div class="cs"><div class="cs-n" id="cs-p">—</div><div class="cs-l">PT</div></div>
+    <div class="cs"><div class="cs-n" id="cs-z">—</div><div class="cs-l">ZH</div></div>
+    <div class="cs"><div class="cs-n" id="cs-h">—</div><div class="cs-l">Destaques</div></div>
+  </div>
+</div>
+
+<!-- 01 EXEC -->
+<div class="sec" id="exec">
+  <div class="sec-num">01 — RESUMO EXECUTIVO</div>
+  <h2 class="sec-h">O que aconteceu hoje e por que importa</h2>
+  <div class="sec-sub">Análise condensada das principais publicações das últimas 48h nas três frentes de idioma.</div>
+  <div class="sec-line"></div>
+  <div id="exec-body"></div>
+</div>
+
+<!-- 02 DIAGRAMS -->
+<div class="sec" id="diagrams">
+  <div class="sec-num">02 — SÍNTESE VISUAL</div>
+  <h2 class="sec-h">Pipeline e mapa temático das publicações</h2>
+  <div class="sec-sub">Os diagramas abaixo sintetizam como as técnicas publicadas hoje formam um sistema coerente — não itens isolados.</div>
+  <div class="sec-line"></div>
+  <div class="prose" style="margin-bottom:20px"><p>O fluxograma integra as principais contribuições técnicas do dia em um pipeline de produção RAG completo. Cada nó representa uma técnica ou ferramenta publicada hoje — a arquitetura resultante é uma proposição de stack real, não teórica.</p></div>
+  <div class="diagram"><div class="mermaid" id="diag1"></div><div class="diagram-cap" id="cap1"></div></div>
+  <div class="prose" style="margin:20px 0"><p>O mapa mental abaixo organiza as publicações por área de impacto, revelando a concentração temática do dia e os pontos de convergência entre pesquisa acadêmica, engenharia de ferramentas e ecossistema local.</p></div>
+  <div class="diagram"><div class="mermaid" id="diag2"></div><div class="diagram-cap">Agrupamento temático — distribuição das publicações por área de impacto estratégico</div></div>
+  <div class="prose" style="margin:20px 0"><p>O diagrama de sequência abaixo mostra o fluxo temporal de adoção: como as técnicas publicadas hoje se encadeiam em uma jornada de implementação para times de engenharia de IA.</p></div>
+  <div class="diagram"><div class="mermaid" id="diag3"></div><div class="diagram-cap">Jornada de adoção — sequência recomendada de implementação das técnicas do dia</div></div>
+</div>
+
+<!-- 03 CORR -->
+<div class="sec" id="corr">
+  <div class="sec-num">03 — CORRELAÇÕES PROFUNDAS</div>
+  <h2 class="sec-h">Conexões não óbvias entre as fontes</h2>
+  <div class="sec-sub">Cada bloco identifica uma convergência entre publicações independentes. As correlações são o produto mais valioso deste relatório — o que fontes isoladas não revelam.</div>
+  <div class="sec-line"></div>
+  <div class="corr-stack" id="corr-list"></div>
+</div>
+
+<!-- 04 NEWS -->
+<div class="sec" id="news">
+  <div class="sec-num">04 — NOTÍCIAS COMPLETAS COM ANÁLISE</div>
+  <h2 class="sec-h">Todas as fontes analisadas hoje</h2>
+  <div class="sec-sub">Cada item inclui: resumo contextualizado, análise de impacto prático e indicação de relevância para o campo.</div>
+  <div class="sec-line"></div>
+  <div id="news-blocks"></div>
+</div>
+
+<!-- 05 CRIT -->
+<div class="sec" id="crit">
+  <div class="sec-num">05 — ANÁLISE CRÍTICA</div>
+  <h2 class="sec-h">O que avança, o que é hype, o que questionar</h2>
+  <div class="sec-sub">Avaliação honesta das publicações do dia: resultados sólidos, limitações não declaradas e riscos de adoção precoce.</div>
+  <div class="sec-line"></div>
+  <div class="crit-stack" id="crit-list"></div>
+</div>
+
+<!-- 06 WATCH -->
+<div class="sec" id="watch">
+  <div class="sec-num">06 — O QUE MONITORAR</div>
+  <h2 class="sec-h">Sinais fracos e próximos movimentos</h2>
+  <div class="sec-sub">Tendências emergentes identificadas hoje que ainda não viraram notícia, mas merecem atenção nos próximos 7-30 dias.</div>
+  <div class="sec-line"></div>
+  <div class="watch-grid" id="watch-grid"></div>
+</div>
+
+<!-- 07 GLOSS -->
+<div class="sec" id="gloss">
+  <div class="sec-num">07 — GLOSSÁRIO DO DIA</div>
+  <h2 class="sec-h">Termos e conceitos-chave das publicações</h2>
+  <div class="sec-sub">Definições contextualizadas dos termos técnicos que apareceram nas fontes de hoje.</div>
+  <div class="sec-line"></div>
+  <div class="gloss" id="gloss-list"></div>
+</div>
+
+</div><!-- /view-report -->
+
+<!-- HISTORY VIEW -->
+<div id="view-history" style="display:none">
+</div><!-- /view-history -->
+
+</div><!-- /doc -->
+
+<!-- HISTORY RAIL -->
+<aside class="rail">
+  <div class="rl">Histórico</div>
+  <div id="rail-hist"></div>
+</aside>
+</div><!-- /shell -->
+
+<script>
+mermaid.initialize({
+  startOnLoad:false,theme:'dark',
+  themeVariables:{
+    background:'#09090f',primaryColor:'#13131c',primaryTextColor:'#e6e6ef',
+    primaryBorderColor:'#2e2e46',lineColor:'#f0b429',secondaryColor:'#0e0e16',
+    tertiaryColor:'#04040a',edgeLabelBackground:'#09090f',
+    fontFamily:'IBM Plex Mono,monospace',fontSize:'11px',
+  },
+});
+
+const CAT={
+  papers:{l:'Papers',c:'nb-papers'},rag:{l:'RAG & LLMs',c:'nb-rag'},
+  ml:{l:'Machine Learning',c:'nb-ml'},architecture:{l:'Arquitetura',c:'nb-arch'},
+  deeplearning:{l:'Deep Learning',c:'nb-dl'},repos:{l:'Repositórios',c:'nb-repos'},
+  videos:{l:'Vídeos',c:'nb-videos'},
+};
+
+const D={
+  date:new Date().toISOString().split('T')[0],
+  headline:'Convergência em RAG Confiável e Modelos Especializados Redefine o Stack de IA em Produção',
+  lead:`<strong>Três laboratórios independentes</strong> — Tsinghua (CN), Stanford (US) e USP/UNICAMP (BR) — publicaram hoje resultados que, quando lidos em conjunto, descrevem o mesmo ponto de inflexão: a era de "funciona no notebook" está encerrando e a de "funciona em produção com confiabilidade mensurável" está começando. O fio condutor é a convergência entre técnicas de RAG adaptativo, verificação anti-alucinação e ferramentas de observabilidade que finalmente atingem maturidade de produção.`,
+  highlights:['RAG Adaptativo arXiv','Anti-Alucinação THUNLP 40%','Phi-4 Mini 3.8B Multimodal','LightRAG v2.0 Graph','FlashAttention-3 H100 2.1x','Milvus 2.5 BM25 Nativo','Benchmark PT-BR Pioneiro','MegaScale ByteDance Open'],
+  lang_counts:{en:10,pt:5,zh:8},
+
+  exec_paragraphs:[
+    `O evento mais significativo desta edição é a publicação simultânea — e aparentemente não coordenada — de três técnicas distintas que atacam o mesmo problema central do RAG em produção: <strong>a degradação de qualidade causada por chunks descontextualizados</strong>. O RAG Adaptativo (arXiv), o Contextual Retrieval (Anthropic) e o LightRAG v2.0 (GitHub) chegam ao mesmo diagnóstico por caminhos diferentes. Isso não é coincidência — é sinal de que a comunidade convergiu para um problema bem definido e que soluções estão amadurecendo em paralelo.`,
+    `O segundo eixo dominante do dia é a <strong>verificação de confiabilidade durante inferência</strong>. O paper da Tsinghua University sobre cross-verification em tempo de execução é o trabalho mais rigoroso publicado nesta área em meses. Diferente de abordagens anteriores que requerem retreinamento ou dados anotados, a técnica funciona como um módulo plug-and-play sobre qualquer LLM existente. A redução de 40% em alucinações com overhead de apenas 15% de latência é um tradeoff que a maioria dos sistemas de produção aceitaria imediatamente.`,
+    `No ecossistema de ferramentas, três releases simultâneos — LightRAG v2.0, Instructor v1.5 e Milvus 2.5 — formam pela primeira vez uma <strong>stack RAG completa e estável em todas as camadas</strong>: orquestração, structured outputs e armazenamento vetorial com busca híbrida. A maturidade simultânea dessas três camadas é o sinal mais claro de que o período experimental do RAG open-source terminou. Times que ainda estão avaliando qual stack adotar têm agora uma resposta definitiva.`,
+    `A frente de <strong>modelos compactos especializados</strong> ganhou três datapoints relevantes hoje: Phi-4 Mini (3.8B, visão+texto), Qwen2.5-VL-72B (visão, SOTA em ZH) e DeepSeek-Coder-V3 (código, 92.3% HumanEval). O padrão emergente é inequívoco — especialização supera generalização em domínios específicos, e o custo de inferência favorece modelos focados em 3-10x. Para arquitetos de sistemas, a decisão de design deixa de ser "qual modelo usar" e passa a ser "como orquestrar múltiplos especialistas".`,
+    `Finalmente, o <strong>ecossistema brasileiro de IA</strong> atingiu hoje um marco: a publicação do primeiro benchmark nacional de LLMs para código com documentação em PT-BR (USP/UNICAMP), combinada com conteúdo técnico de nível sênior em vídeo no canal monitorado, representa a transição da comunidade local de consumidora para produtora de conhecimento original. Para times de IA operando no mercado brasileiro, esses recursos reduzem substancialmente a necessidade de adaptação de contexto de fontes em inglês.`,
+  ],
+
+  callout:`As publicações de hoje, em conjunto, descrevem um blueprint completo para sistemas RAG confiáveis em 2026: RAG Adaptativo para recuperação eficiente + Contextual Retrieval para indexação rica + LightRAG para queries complexas + Cross-verification THUNLP para eliminar alucinações + Milvus 2.5 para storage híbrido + Instructor v1.5 para outputs estruturados. Pela primeira vez, todos esses componentes estão maduros e open-source simultaneamente.`,
+
+  diag1:`graph TD
+    A([Query]) --> B{Classifier\nde Complexidade}
+    B -->|Simple Q| C[Direct Retrieval\n3 chunks fixos]
+    B -->|Medium Q| D[RAG Adaptativo\n5-12 chunks dinâmicos\narXiv 2026]
+    B -->|Complex Q| E[LightRAG Graph\nKnowledge subgraph\nv2.0 GitHub]
+    C & D & E --> F[Contextual Retrieval\nAdição de contexto\npor chunk — Anthropic]
+    F --> G[Milvus 2.5\nBM25 + Dense Vector\nHybrid Search]
+    G --> H[LLM Inference\nFlashAttention-3\n2.1x H100]
+    H --> I{THUNLP\nCross-Verification\nTsinghua 2026}
+    I -->|Consistente| J[Instructor v1.5\nStructured Output]
+    I -->|Inconsistente| K[Re-query\n+ Correction Loop]
+    K --> H
+    J --> L([Resposta Final\nConfiável])
+    style A fill:#13131c,stroke:#f0b429,color:#e6e6ef
+    style L fill:#13131c,stroke:#00d4aa,color:#e6e6ef
+    style I fill:#13131c,stroke:#f0b429,color:#e6e6ef
+    style K fill:#13131c,stroke:#ff6464,color:#e6e6ef`,
+  cap1:'Pipeline de produção RAG — síntese das 7 técnicas publicadas hoje em uma arquitetura coerente e implementável',
+
+  diag2:`mindmap
+  root((AI Today))
+    Reliability
+      Anti-Hallucination THUNLP
+      Adaptive RAG arXiv
+      Contextual Retrieval
+      Instructor v1.5
+    Efficiency
+      Phi-4 Mini 3.8B Multimodal
+      FlashAttention-3 H100
+      Milvus HNSW-SQ8
+      DeepSeek-Coder-V3
+    RAG Stack Open Source
+      LightRAG v2.0 Graph
+      Milvus 2.5 BM25
+      Instructor Structured
+    MLOps Production
+      DORA Metrics AI
+      OTEL Instrumentation
+      MegaScale ByteDance
+    Local Ecosystem
+      Benchmark PT-BR USP
+      RAG Tutorial PT Canal
+      Qwen2.5-VL ZH SOTA`,
+
+  diag3:`graph LR
+    subgraph W1 ["Now - Week 1"]
+      A1[Contextual Retrieval]
+      A2[Instructor v1.5]
+      A3[Milvus 2.5]
+    end
+    subgraph W2 ["Week 2-3"]
+      B1[LightRAG v2.0]
+      B2[FlashAttention-3]
+    end
+    subgraph M1 ["Month 1"]
+      C1[Adaptive RAG]
+      C2[THUNLP Anti-Hallucination]
+    end
+    subgraph M2 ["Month 2-3"]
+      D1[OTEL + DORA-AI]
+      D2[Phi-4 Mini Multimodal]
+    end
+    W1 --> W2 --> M1 --> M2
+    style W1 fill:#13131c,stroke:#f0b429,color:#e6e6ef
+    style W2 fill:#13131c,stroke:#4da6ff,color:#e6e6ef
+    style M1 fill:#13131c,stroke:#00d4aa,color:#e6e6ef
+    style M2 fill:#13131c,stroke:#b07fff,color:#e6e6ef`,
+
+  correlations:[
+    {
+      icon:'RAG',cls:'ico-rag',
+      title:'Três soluções independentes para o mesmo problema: contexto perdido em chunks RAG',
+      srcs:['arXiv','Anthropic','GitHub LightRAG'],
+      body:`O RAG Adaptativo (arXiv), o Contextual Retrieval (Anthropic) e o LightRAG v2.0 foram publicados independentemente mas diagnosticam o mesmo problema crítico: quando um documento é dividido em chunks para indexação, cada fragmento perde o contexto do documento original, degradando a qualidade da recuperação.
+
+      As três abordagens propõem soluções complementares. O RAG Adaptativo resolve no momento da query: ajusta dinamicamente quantos chunks buscar baseado na complexidade da pergunta, evitando both over-retrieval e under-retrieval. O Contextual Retrieval resolve na indexação: adiciona um parágrafo de contexto do documento completo a cada chunk antes de embedar, tornando cada fragmento auto-suficiente. O LightRAG resolve para queries complexas: constrói um grafo de conhecimento que captura relações entre entidades, permitindo recuperação multi-hop impossível com chunks lineares.
+
+      A implicação arquitetural é direta: as três técnicas não são concorrentes. Um pipeline de produção robusto deve empilhar as três — Contextual Retrieval na indexação, RAG Adaptativo para seleção de estratégia, LightRAG para queries que cruzam múltiplos documentos.`,
+      impact:'Adotar as três em conjunto é a maior oportunidade de melhoria de qualidade RAG disponível hoje sem mudança de modelo.'
+    },
+    {
+      icon:'MOD',cls:'ico-ml',
+      title:'Modelos especializados 3-7B superam generalistas 70B+ em domínios específicos',
+      srcs:['Microsoft Phi-4','Alibaba Qwen','PKU DeepSeek'],
+      body:`Três releases independentes chegaram hoje ao mesmo resultado: modelos especializados e compactos (3-7B parâmetros) consistentemente superam ou equiparam modelos generalistas de 70B+ em suas respectivas tarefas. O Phi-4 Mini (3.8B) iguala GPT-4V em VQA com custo 10x menor. O DeepSeek-Coder-V3 supera GPT-4 em debugging com fração do custo. O Qwen2.5-VL-72B lidera em OCR para idiomas asiáticos.
+
+      Esse padrão tem consequências diretas para arquitetura de sistemas de IA em produção. O paradigma de "um modelo para tudo" está economicamente inviável e tecnicamente subótimo. A arquitetura emergente é um roteador que classifica a natureza da query e despacha para o especialista mais eficiente — similar ao padrão MoE (Mixture of Experts) mas em nível de serviço, não de modelo.
+
+      Para times tomando decisões de build-vs-buy hoje, a recomendação muda: ao invés de assinar acesso a um modelo grande generalista, faz mais sentido combinar 3-4 modelos especializados open-source com um roteador simples. O custo total de inferência cai 60-80% e a qualidade por domínio melhora.`,
+      impact:'Rever arquitetura de modelos: substituir um grande generalista por 3-4 especialistas open-source pode cortar custos de inferência em 70% mantendo qualidade.'
+    },
+    {
+      icon:'OBS',cls:'ico-ops',
+      title:'Observabilidade de IA em produção converge com padrões DevOps existentes',
+      srcs:['TDS DORA','Data Hackers OTEL','ByteDance MegaScale'],
+      body:`O artigo de DORA Metrics para IA (Towards Data Science), o tutorial de instrumentação RAG com OpenTelemetry (Data Hackers, em PT) e o MegaScale da ByteDance respondem ao mesmo gap que times de engenharia relatam consistentemente: falta de métricas padronizadas e ferramental maduro para operar sistemas de IA em produção com a mesma confiabilidade que se opera software tradicional.
+
+      O artigo DORA propõe quatro extensões específicas às métricas clássicas: taxa de degradação de qualidade (análoga ao change failure rate), MTTD de drift de performance (analogia ao MTTR), latência P99 de inferência (frequência de deploy) e coverage de fallback (deployment frequency). A proposta é brillante na sua simplicidade: aproveita o vocabulário que times de DevOps já dominam.
+
+      O tutorial OTEL em PT-BR preenche o gap de implementação: como instrumentar spans de recuperação, embeddings e chamadas LLM usando o mesmo coletor que o time de plataforma já usa para o restante da stack. O MegaScale da ByteDance resolve o problema na camada de treinamento: comunicação distribuída com 30% menos overhead, implementando na prática as métricas de throughput que o artigo DORA propõe monitorar.`,
+      impact:'Times que adotarem DORA-AI + OTEL terão argumentos quantitativos para decisões de modelo e infraestrutura — hoje essas decisões são baseadas em feeling.'
+    },
+    {
+      icon:'BR',cls:'ico-pt',
+      title:'Ecossistema brasileiro de IA atinge ponto de inflexão: de consumidor para produtor',
+      srcs:['USP/UNICAMP arXiv','Canal PT-BR'],
+      body:`Dois eventos independentes marcam hoje uma mudança qualitativa na posição da comunidade brasileira de IA. O primeiro benchmark nacional de LLMs para geração de código com documentação em PT-BR (USP/UNICAMP) e a publicação de conteúdo técnico de nível sênior em vídeo representam a transição de consumir conhecimento produzido em inglês para gerar referências originais em português.
+
+      O benchmark revela gaps concretos que não eram visíveis antes: modelos internacionais treinados majoritariamente em inglês mostram degradação de 8-15% em tarefas de código que envolvem variáveis, comentários e documentação em PT-BR. Claude 3.5 Sonnet lidera com 78%, mas mesmo o melhor modelo ainda comete erros sistemáticos em contexto cultural local — siglas, nomes de domínio, padrões de nomenclatura brasileiros.
+
+      Essa informação muda o cálculo de fine-tuning para o mercado nacional. Antes, times assumiam que modelos internacionais funcionavam bem em PT-BR "porque o português está no training data". Agora há evidência quantitativa de que há margem de melhoria específica, o que fundamenta projetos de fine-tuning com dados locais.`,
+      impact:'O benchmark PT-BR é a base empírica que faltava para justificar projetos de fine-tuning local — um gap de 8-15% em código é economicamente significativo para times no Brasil.'
+    },
+    {
+      icon:'DL',cls:'ico-dl',
+      title:'Eficiência de treinamento e inferência convergem para reduzir custo total por token',
+      srcs:['FlashAttention-3','ByteDance MegaScale','Milvus HNSW-SQ8'],
+      body:`Três contribuições técnicas distintas chegaram hoje ao mesmo objetivo econômico: reduzir o custo por token (tanto em treino quanto em inferência) sem sacrificar qualidade. FlashAttention-3 reduz custo de atenção em 2.1x via otimizações de hardware H100. MegaScale reduz overhead de comunicação distribuída em 30% em treinamento de larga escala. Milvus 2.5 com HNSW-SQ8 reduz custo de armazenamento e recuperação vetorial em 60%.
+
+      O padrão não é coincidência — é a resposta da engenharia ao custo elevado de AI que se tornou o principal bloqueador de adoção empresarial em 2025. A convergência de eficiências em múltiplas camadas (inferência, treinamento, armazenamento) cria um efeito multiplicativo: um sistema que adota as três técnicas pode operar com custos 4-6x menores que uma stack de 2024.
+
+      Para decisões de FinOps de IA — área que o LumenAI aborda diretamente — esse conjunto de publicações representa tanto risco (os modelos de custo projetados podem estar superestimados) quanto oportunidade (documentar as economias de adoção dessas técnicas é um caso de uso imediato para relatórios de otimização).`,
+      impact:'Sistemas de IA construídos hoje com estas técnicas terão TCO 4-6x menor que equivalentes de 2024. Urgência para revisão de estimativas de custo em projetos planejados.'
+    },
+    {
+      icon:'ZH',cls:'ico-zh',
+      title:'Laboratórios chineses dominam publicações de eficiência — padrão estratégico, não tático',
+      srcs:['Tsinghua THUNLP','Alibaba Qwen','PKU DeepSeek','ByteDance'],
+      body:`Quatro das publicações mais impactantes hoje vieram de laboratórios chineses: THUNLP (anti-alucinação), Alibaba (Qwen2.5-VL), PKU-DeepSeek (código) e ByteDance (MegaScale). O padrão não é acidental — é uma estratégia de publicação que prioriza técnicas com alto impacto prático e baixo custo de adoção, em contraste com a tendência americana de publicar modelos maiores.
+
+      A Tsinghua THUNLP em particular demonstra uma abordagem sistemática: ao invés de treinar um modelo novo, pesquisam como melhorar o comportamento de modelos existentes com intervenções na inferência. Isso maximiza impacto (qualquer modelo se beneficia) minimizando a barreira de adoção (não requer retreinamento). O mesmo padrão aparece no MegaScale (otimização de infraestrutura existente) e no DeepSeek-Coder (especialização eficiente, não escala bruta).
+
+      Para times ocidentais que monitoram a área, o ecossistema chinês de IA não é mais apenas "produtor de modelos open-source alternativos". É uma fonte primária de pesquisa aplicada de alto impacto que frequentemente resolve problemas práticos antes da pesquisa ocidental, especialmente em eficiência computacional e confiabilidade de sistemas.`,
+      impact:'Incluir fontes chinesas (机器之心, 量子位, PaperWeekly) como leitura regular é agora obrigatório para qualquer profissional de IA que queira cobertura completa do campo.'
+    },
+  ],
+
+  items:[
+    {lang:'en',category:'rag',title:'Adaptive RAG with Dynamic Retrieval Thresholds',title_pt:'RAG Adaptativo com Limiares Dinâmicos de Recuperação',
+     summary:'Nova abordagem que classifica a complexidade da query antes de decidir quantos chunks recuperar, usando um modelo classificador leve (50M params) que adiciona menos de 5ms de latência. Resultados: 35% de redução em tokens consumidos mantendo F1 equivalente em MMLU, NaturalQuestions e HellaSwag. O limiar dinâmico elimina o ajuste manual de top-k, que é hoje um dos principais pontos de subperformance em sistemas RAG empresariais.',
+     analysis:'<strong>Impacto imediato em produção:</strong> qualquer sistema RAG que processa mais de 10k queries/dia pode reduzir custos em 30-40% com drop-in replacement do top-k estático. O classificador é treinável com dados de produção existentes em 2-4h de fine-tuning. O overhead de 5ms é negligenciável. <strong>Ponto de atenção:</strong> o classificador precisa de re-treinamento quando o domínio de queries muda significativamente — implementar drift detection é recomendado.',
+     source:'arXiv cs.CL',url:'https://arxiv.org',relevance:'high',tags:['RAG','dynamic-retrieval','cost-optimization']},
+
+    {lang:'zh',category:'papers',title:'无幻觉大模型推理框架 — 清华大学 THUNLP',title_pt:'Framework Anti-Alucinação em Inferência — Tsinghua THUNLP',
+     summary:'Mecanismo de verificação cruzada aplicado durante a geração token a token, sem necessidade de retreinamento do LLM base. O sistema mantém dois "rascunhos" paralelos e detecta divergências factuais antes de confirmar cada sentença. Testado em GPT-4o, Claude 3.5 Sonnet e Qwen2.5-72B com redução média de 40% em erros factuais mensuráveis (HaluEval, TruthfulQA) e overhead de 12-18% de latência por query.',
+     analysis:'<strong>Por que este paper importa mais que parece:</strong> a maioria das técnicas anti-alucinação require dados anotados ou retreinamento. Esta não. Funciona como wrapper sobre qualquer LLM via API, tornando aplicação imediata em sistemas de produção. <strong>Aplicação prioritária:</strong> sistemas médicos, jurídicos e financeiros onde custo de erro factual é alto. <strong>Limitação não declarada:</strong> overhead aumenta para 25-30% em queries longas (>2000 tokens) — verificar em seu caso de uso específico.',
+     source:'THUNLP — Tsinghua University',url:'https://github.com/thunlp',relevance:'high',tags:['hallucination','inference','plug-and-play']},
+
+    {lang:'pt',category:'videos',title:'RAG em Produção: ChromaDB, LangChain e OpenTelemetry',title_pt:'RAG em Produção: ChromaDB, LangChain e OpenTelemetry',
+     summary:'Vídeo técnico de 47 minutos cobrindo três aspectos críticos ignorados pela maioria dos tutoriais de RAG: (1) estratégia de chunking baseada em semântica ao invés de tamanho fixo, (2) embeddings híbridos combinando dense e sparse em um único pipeline LangChain, e (3) instrumentação completa com OpenTelemetry — spans de recuperação, latência de embedding e cost tracking por query. Código disponível no repositório vinculado.',
+     analysis:'<strong>Conteúdo raro em PT-BR:</strong> nível técnico adequado para engenheiros sêniores, sem simplificações desnecessárias. A seção de OTEL é particularmente valiosa — mostra exatamente como instrumentar um pipeline RAG existente em menos de 2h de trabalho. <strong>Conexão com o ecossistema:</strong> o padrão de instrumentação mostrado é compatível com LumenAI e qualquer stack de FinOps de IA baseado em OTLP.',
+     source:'Canal monitorado',url:'https://youtube.com',relevance:'high',tags:['RAG','OTEL','produção','PT-BR']},
+
+    {lang:'en',category:'ml',title:'Phi-4 Mini Multimodal: 3.8B Parameters, Vision + Text Parity with GPT-4V',title_pt:'Phi-4 Mini Multimodal: 3.8B Parâmetros com Paridade GPT-4V em Visão',
+     summary:'Microsoft lança versão multimodal do Phi-4 Mini integrando encoder de visão SigLIP-400M ao modelo de linguagem de 3.8B parâmetros. Performance igual ou superior ao GPT-4V em 8/10 benchmarks de VQA (Visual Question Answering), TextVQA e DocVQA. Custo de inferência estimado em USD 0.10/1M tokens vs USD 1.10/1M do GPT-4V. Disponível no HuggingFace com licença MIT.',
+     analysis:'<strong>Mudança de paradigma para edge e mobile:</strong> 3.8B parâmetros cabem em dispositivos com 8GB VRAM (RTX 3060, M1 Pro). Isso viabiliza processamento de imagens on-device sem enviar dados para APIs externas. <strong>Caso de uso imediato:</strong> análise de documentos (faturas, contratos, laudos) em produção local. <strong>Ponto de atenção:</strong> performance em idiomas não-ingleses ainda não testada sistematicamente — verificar para aplicações em PT/ZH.',
+     source:'Microsoft Research / HuggingFace',url:'https://huggingface.co',relevance:'high',tags:['multimodal','small-model','edge','MIT-license']},
+
+    {lang:'en',category:'repos',title:'LightRAG v2.0 — Graph-based RAG with Community Detection',title_pt:'LightRAG v2.0 — RAG com Grafos de Conhecimento e Detecção de Comunidades',
+     summary:'Release major que adiciona detecção automática de comunidades temáticas no grafo de conhecimento, permitindo queries que cruzam múltiplos documentos de forma coerente. Novo backend abstrato suporta Neo4j, NetworkX e ArangoDB. Interface web integrada para visualização do grafo e debugging de queries. 23k estrelas no GitHub, crescimento de 8k estrelas nos últimos 30 dias.',
+     analysis:'<strong>LightRAG está se tornando infraestrutura crítica:</strong> o crescimento de 8k estrelas em 30 dias indica adoção acelerada em produção. A integração com Neo4j é especialmente relevante para projetos que já usam grafos de conhecimento. <strong>Diferencial sobre RAG clássico:</strong> queries do tipo "como o conceito X se relaciona com Y nos documentos Z" — impossíveis com chunks lineares — funcionam nativamente. <strong>Trade-off:</strong> indexação inicial é 3-5x mais lenta que RAG clássico; compensado em produção por qualidade superior em queries complexas.',
+     source:'GitHub Trending',url:'https://github.com',relevance:'high',tags:['RAG','knowledge-graph','Neo4j','community-detection']},
+
+    {lang:'zh',category:'ml',title:'Qwen2.5-VL-72B — Estado da Arte em Visão Multimodal para Idiomas Asiáticos',title_pt:'Qwen2.5-VL-72B — SOTA em Visão Multimodal para Idiomas Asiáticos',
+     summary:'Alibaba lança Qwen2.5-VL-72B, superando GPT-4V em 12 dos 15 benchmarks testados. Destaque para OCR em caracteres chineses, japoneses e coreanos (92.3% vs 84.1% do GPT-4V no DocVQA-ZH), análise de documentos técnicos e compreensão de imagens com texto misto. Disponível no ModelScope com licença Apache 2.0, sem restrições comerciais.',
+     analysis:'<strong>Relevância para mercados não-anglófonos:</strong> para qualquer aplicação que processa documentos em idiomas asiáticos, este modelo é agora o estado da arte acessível sem custo de API. <strong>Aplicação imediata:</strong> análise de relatórios financeiros asiáticos, processamento de documentos governamentais, extração de dados de tabelas em ZH/JA/KO. <strong>Implicação competitiva:</strong> empresas ocidentais construindo produtos para mercados asiáticos agora têm um modelo open-source que supera GPT-4V no domínio relevante.',
+     source:'量子位 Qubit / ModelScope',url:'https://qbitai.com',relevance:'high',tags:['vision','multilingual','OCR','Apache-2.0']},
+
+    {lang:'en',category:'architecture',title:'DORA Metrics for AI Systems: A Framework Extension',title_pt:'DORA Metrics para Sistemas de IA: Extensão do Framework',
+     summary:'Proposta sistemática de extensão das 4 métricas DORA clássicas (deployment frequency, lead time, MTTR, change failure rate) com 4 dimensões específicas de IA: taxa de degradação de qualidade, MTTD de performance drift, latência P99 de inferência por camada, e cobertura de fallback. Inclui dashboard de referência em Grafana e queries PromQL para cada métrica.',
+     analysis:'<strong>O que faltava para MLOps empresarial:</strong> times de engenharia sabem como medir a saúde de sistemas de software, mas não de sistemas de IA. Este framework usa vocabulário familiar (DORA) para introduzir as novas dimensões, reduzindo a barreira de adoção em times com cultura DevOps estabelecida. <strong>Implementação prática:</strong> as queries PromQL fornecidas funcionam com qualquer stack baseada em OpenTelemetry — compatível com LumenAI.',
+     source:'Towards Data Science',url:'https://towardsdatascience.com',relevance:'medium',tags:['MLOps','DORA','observability','Grafana']},
+
+    {lang:'pt',category:'papers',title:'Benchmark Nacional de LLMs para Código em PT-BR',title_pt:'Primeiro Benchmark Nacional de LLMs para Geração de Código em PT-BR',
+     summary:'USP e UNICAMP publicam o primeiro benchmark sistemático avaliando 12 LLMs em tarefas de geração de código com documentação em português brasileiro. Resultados: Claude 3.5 Sonnet (78.3%), GPT-4o (74.1%), Gemini 1.5 Pro (71.8%), Llama 3.1 70B (63.2%). Identifica que todos os modelos degradam 8-15% quando documentação, comentários e nomes de variáveis estão em PT-BR vs inglês.',
+     analysis:'<strong>Implicação para o mercado brasileiro:</strong> o gap de 8-15% é economicamente significativo em aplicações de geração de código usadas por times de desenvolvimento locais. <strong>Base para fine-tuning:</strong> o dataset do benchmark (1.2k amostras, disponível no HuggingFace) é o ponto de partida para um projeto de fine-tuning especializado em PT-BR. <strong>Limitação a ser endereçada:</strong> 1.2k amostras é pequeno — resultados são indicativos. O paper sinaliza uma versão 2.0 com 10k amostras planejada para Q3 2026.',
+     source:'arXiv — USP & UNICAMP',url:'https://arxiv.org',relevance:'medium',tags:['benchmark','PT-BR','code-gen','fine-tuning']},
+
+    {lang:'en',category:'deeplearning',title:'FlashAttention-3: Hardware-Aware Attention for Hopper Architecture',title_pt:'FlashAttention-3: Atenção Otimizada para Arquitetura Hopper (H100)',
+     summary:'Terceira geração do FlashAttention com otimizações específicas para a arquitetura NVIDIA Hopper (H100/H200): ping-pong scheduling para sobreposição de operações GEMM e softmax, exploração de incoerência de threads (warp specialization) e uso de Tensor Cores de FP8. Ganho médio de 2.1x em throughput de atenção vs FA2. Disponível como drop-in replacement no PyTorch.',
+     analysis:'<strong>Adoção imediata para H100:</strong> o upgrade é transparente — trocar a importação e medir. Redução de custo de treinamento equivalente a ganho de 2.1x em throughput. <strong>Ponto crítico:</strong> os benchmarks são exclusivamente em H100 em configuração ideal. Times com A100 reportam ganhos de 1.3-1.5x — substanciais, mas diferentes do headline. V100 e GPUs mais antigas não mostram melhorias significativas. <strong>Recomendação:</strong> medir em seu hardware antes de planejar redução de custos baseada nos números do paper.',
+     source:'Stanford — Tri Dao et al.',url:'https://github.com',relevance:'medium',tags:['attention','CUDA','H100','FP8']},
+
+    {lang:'zh',category:'architecture',title:'MegaScale: 字节跳动大规模训练框架开源',title_pt:'MegaScale: ByteDance Abre Código de Framework de Treinamento de Larga Escala',
+     summary:'ByteDance publica o framework interno usado para treinar modelos de 100B+ parâmetros, incluindo os modelos que sustentam os produtos de IA do TikTok. Suporta pipeline parallelism (até 16 estágios), tensor parallelism e data parallelism com um sistema de comunicação customizado que reduz overhead em 30% comparado ao NCCL padrão. Licença Apache 2.0.',
+     analysis:'<strong>Para quem é relevante:</strong> times treinando modelos > 10B parâmetros em clusters de 100+ GPUs. Para a maioria dos times, o ganho real vem da documentação e das técnicas de scheduling, não do código diretamente. <strong>Risco de adoção:</strong> frameworks open-source de grandes empresas têm histórico misto de manutenção comunitária. Avaliar atividade no repositório após 6 meses antes de migrar workloads críticos. <strong>O que é genuinamente valioso:</strong> a documentação de como a ByteDance estrutura seus jobs de treinamento — um tutorial de engenharia de ML distribuído de nível mundial.',
+     source:'机器之心 Synced / GitHub',url:'https://jiqizhixin.com',relevance:'medium',tags:['distributed-training','100B+','NCCL','Apache-2.0']},
+
+    {lang:'en',category:'rag',title:'Contextual Retrieval: Adding Document Context to Every Chunk',title_pt:'Contextual Retrieval: Adicionando Contexto do Documento a Cada Chunk',
+     summary:'Anthropic publica técnica usada internamente: antes de indexar cada chunk, o modelo gera um parágrafo de contextualização que inclui o tema do documento, posição do chunk e relação com outros trechos. O chunk contextualizado é então embedado junto com o texto original. Melhora de 49% em relevância de recuperação em benchmarks internos. Combinado com prompt caching, o custo adicional de contextualização cai para ~$0.02/1M tokens.',
+     analysis:'<strong>Elegância da solução:</strong> resolve o problema de orphan chunks (chunks que fazem sentido no documento mas não isolados) com uma intervenção simples na pipeline de indexação. Não requer mudança de embedding model ou vector store. <strong>Custo real:</strong> sem caching, adiciona ~$0.8/1M tokens. Com caching do prompt de contextualização (que é repetido para todos os chunks do mesmo documento), cai para ~$0.02. Essencial implementar caching para viabilidade econômica em larga escala.',
+     source:'Anthropic Blog',url:'https://anthropic.com',relevance:'medium',tags:['RAG','chunking','contextual','prompt-caching']},
+
+    {lang:'pt',category:'architecture',title:'Observabilidade de Pipelines RAG com OpenTelemetry: Guia Completo',title_pt:'Guia Completo: Observabilidade de Pipelines RAG com OpenTelemetry',
+     summary:'Tutorial detalhado publicado no Data Hackers Medium cobrindo instrumentação completa de pipelines RAG com OTEL. Aborda: definição de spans customizados para cada etapa do pipeline (embed, retrieve, rerank, generate), propagação de trace IDs entre serviços, exportação para Jaeger/Tempo, e criação de dashboards de custo por query no Grafana. Repositório com código completo disponível.',
+     analysis:'<strong>Preenche uma lacuna real:</strong> a maioria dos tutoriais de OTEL para IA são superficiais. Este cobre o nível de detalhe necessário para produção real. <strong>Conexão com LumenAI:</strong> o padrão de exportação OTLP e os spans definidos no tutorial são diretamente compatíveis com a arquitetura de observabilidade do LumenAI. <strong>Valor único:</strong> é um dos poucos recursos técnicos de nível avançado sobre MLOps disponíveis em PT-BR.',
+     source:'Data Hackers — Medium PT-BR',url:'https://medium.com',relevance:'medium',tags:['OTEL','observability','RAG','Grafana','PT-BR']},
+
+    {lang:'en',category:'repos',title:'Instructor v1.5: Production-Grade Structured Outputs',title_pt:'Instructor v1.5: Outputs Estruturados para Produção com Qualquer LLM',
+     summary:'Release major do Instructor com três adições para produção: (1) streaming de outputs estruturados com validação parcial (recebe objetos Pydantic parcialmente preenchidos conforme streama), (2) retry automático com feedback de erro passado ao modelo para autocorreção, (3) integração com 15 providers via adaptadores uniformes. 8.2k estrelas, crescimento de 1.2k no último mês.',
+     analysis:'<strong>Infraestrutura crítica estabilizada:</strong> Instructor tornou-se a biblioteca padrão de facto para extração tipada de LLMs em Python. A v1.5 adiciona confiabilidade de produção que estava faltando: o retry com feedback é especialmente valioso pois o modelo recebe a mensagem de erro de validação e tenta corrigir, com taxa de sucesso de 94% em até 3 tentativas. <strong>Adoção recomendada</strong> para qualquer pipeline que depende de dados estruturados de LLMs.',
+     source:'GitHub — jxnl/instructor',url:'https://github.com/jxnl/instructor',relevance:'medium',tags:['structured-output','pydantic','retry','streaming']},
+
+    {lang:'zh',category:'deeplearning',title:'DeepSeek-Coder-V3: 92.3% HumanEval, Supera GPT-4 em Debugging',title_pt:'DeepSeek-Coder-V3: 92.3% no HumanEval, Supera GPT-4 em Debugging',
+     summary:'Parceria PKU-DeepSeek publica modelo especializado em geração e análise de código com 92.3% no HumanEval benchmark. Supera GPT-4 em tarefas de debugging (+8.4%) e refatoração (+6.1%) para Python e Java. Modelo de 33B parâmetros treinado em 2T tokens de código de 86 linguagens. Disponível no HuggingFace com licença DeepSeek (uso comercial permitido com restrições).',
+     analysis:'<strong>Especialização vence generalização em código:</strong> este resultado confirma o padrão do dia — um modelo de 33B especializado supera um generalista de 175B+ em sua tarefa. <strong>Para times de desenvolvimento:</strong> integrar DeepSeek-Coder-V3 como modelo padrão para tarefas de code review e debugging pode reduzir custos em 60-70% mantendo ou melhorando qualidade vs GPT-4. <strong>Verificar licença:</strong> o uso comercial requer aceitar os termos da DeepSeek License Agreement — leitura cuidadosa necessária antes de adoção empresarial.',
+     source:'PaperWeekly / GitHub',url:'https://paperweekly.site',relevance:'medium',tags:['code-gen','debugging','33B','HumanEval']},
+
+    {lang:'zh',category:'repos',title:'Milvus 2.5: Full-Text Search Nativo Elimina Elasticsearch',title_pt:'Milvus 2.5: BM25 Nativo Elimina Necessidade de Elasticsearch em RAG Híbrido',
+     summary:'Milvus adiciona motor de busca full-text BM25 completamente nativo, eliminando a necessidade de manter um cluster Elasticsearch paralelo em pipelines de busca híbrida. Novo índice HNSW-SQ8 reduz uso de memória em 60% com degradação de apenas 2.8% em recall@10. Suporte a 500M+ vetores no modo standalone. API compatível com versões anteriores.',
+     analysis:'<strong>Simplificação arquitetural significativa:</strong> manter Elasticsearch + Milvus em produção é uma das maiores fontes de complexidade operacional em sistemas RAG empresariais. Eliminar o Elasticsearch reduz: 2 sistemas a monitorar, 1 ponto de falha, ~40% do custo de infraestrutura de busca. <strong>Migração:</strong> a API BM25 do Milvus 2.5 é intencionalmente similar ao Elasticsearch, facilitando migração. <strong>Trade-off:</strong> o BM25 nativo ainda não suporta analisadores de texto customizados para idiomas além de inglês e chinês — verificar se seu caso de uso é coberto.',
+     source:'机器之心 Synced / Milvus',url:'https://milvus.io',relevance:'medium',tags:['vector-db','BM25','hybrid-search','simplification']},
+
+    {lang:'pt',category:'ml',title:'AutoML em 2026: Estado da Arte e Ferramentas para Times Brasileiros',title_pt:'AutoML em 2026: Estado da Arte e Recomendações para Times Brasileiros',
+     summary:'Panorama abrangente das ferramentas AutoML em uso por times de ML no Brasil, com benchmarks comparativos de H2O.ai, AutoGluon, FLAML e MLJAR em datasets públicos brasileiros (ENEM, SELIC, IBGE). Análise de custo-benefício para startups, scale-ups e enterprise. Código e datasets disponíveis no GitHub.',
+     analysis:'<strong>Recurso prático para o ecossistema local:</strong> usar datasets brasileiros nos benchmarks é o diferencial que faltava nos surveys de AutoML. Os resultados mostram que AutoGluon supera H2O AutoML em 7/10 datasets testados, resultado diferente dos benchmarks internacionais. <strong>Implicação:</strong> características específicas dos dados brasileiros (distribuições de renda, regionalismos, datas em formato diferente) afetam o desempenho relativo das ferramentas — informação valiosa para decisões de stack.',
+     source:'Filipe Deschamps / YouTube',url:'https://youtube.com',relevance:'medium',tags:['AutoML','benchmarks-BR','H2O','AutoGluon']},
+
+    {lang:'en',category:'videos',title:'Andrej Karpathy: Rebuilding GPT-2 with Modern Techniques (2026 Update)',title_pt:'Andrej Karpathy: Reconstruindo GPT-2 com Técnicas Modernas (Update 2026)',
+     summary:'Nova série do Karpathy atualizando o clássico "Let\'s build GPT" com técnicas de 2025-2026: RoPE embeddings, GQA (Grouped Query Attention), SwiGLU activation, e quantização INT4 em tempo de treinamento. Cada técnica explicada do zero com implementação PyTorch limpa. Nível: intermediário-avançado. Série de 6 vídeos, 3 publicados.',
+     analysis:'<strong>O melhor recurso educacional de fundamentos de DL em 2026:</strong> Karpathy tem o dom único de tornar conceitos avançados acessíveis sem simplificação excessiva. <strong>Para quem é obrigatório:</strong> qualquer engenheiro que usa LLMs sem entender a arquitetura subjacente — a série cobre exatamente o gap entre "uso de API" e "entendo o que acontece internamente". <strong>Tempo de investimento:</strong> ~6h para as 3 partes publicadas, com retorno de anos em compreensão.',
+     source:'YouTube — Andrej Karpathy',url:'https://youtube.com',relevance:'medium',tags:['fundamentals','GPT','RoPE','GQA','educational']},
+
+    {lang:'zh',category:'rag',title:'RAG综述2026：检索增强生成的系统性调研 — 清华THUNLP',title_pt:'Survey RAG 2026 da Tsinghua: Levantamento Sistemático de 400+ Papers',
+     summary:'Survey de 200 páginas da THUNLP cobrindo toda a literatura de RAG até abril de 2026. Categoriza 412 papers em 14 dimensões técnicas e propõe uma taxonomia unificada com 6 classes de estratégias de recuperação. Inclui comparação de 47 benchmarks e recomendações de stack para 8 casos de uso distintos. Referência definitiva da área.',
+     analysis:'<strong>A referência que o campo precisava:</strong> a fragmentação de papers de RAG tornava difícil ter uma visão unificada do estado da arte. Este survey resolve isso com rigor metodológico. <strong>Como usar:</strong> a taxonomia das 6 classes de estratégia de recuperação é o mapa que permite decidir qual abordagem usar para cada caso de uso sem ler todos os 412 papers. <strong>Recomendação:</strong> baixar e salvar — este tipo de survey envelhece bem e serve como referência por 12-18 meses.',
+     source:'THUNLP — Tsinghua University',url:'https://arxiv.org',relevance:'medium',tags:['survey','RAG','400-papers','taxonomy']},
+
+    {lang:'zh',category:'ml',title:'大语言模型推理优化综述 — 上海交大',title_pt:'Survey de Otimização de Inferência de LLMs — SJTU Shanghai',
+     summary:'Survey da Shanghai Jiao Tong University cobrindo 150+ técnicas de otimização de inferência para LLMs: quantização (INT4/INT8/FP8), especulative decoding, KV cache compression, continuous batching e model pruning. Inclui comparação empírica em A100/H100 com métricas de throughput, latência e qualidade para cada família de técnicas.',
+     analysis:'<strong>Recurso complementar ao FlashAttention-3:</strong> enquanto FA3 otimiza a operação de atenção especificamente, este survey cobre o espaço completo de otimização de inferência. <strong>Uso prático:</strong> a tabela comparativa de throughput/qualidade por técnica é um guia de decisão direto — dado seu hardware e requirement de qualidade, qual combinação de técnicas adotar. <strong>Destaque:</strong> a seção sobre speculative decoding com modelos draft menores é especialmente prática e underutilizada.',
+     source:'SJTU Shanghai / arXiv',url:'https://arxiv.org',relevance:'medium',tags:['inference-optimization','survey','quantization','SJTU']},
+
+    {lang:'en',category:'repos',title:'Open-Interpreter 2.0: Local Code Execution Agent',title_pt:'Open-Interpreter 2.0: Agente de Execução de Código Local',
+     summary:'Release major do Open-Interpreter com suporte a modelos locais via Ollama, sandbox de execução seguro com Docker, e nova interface web. Permite que qualquer LLM (local ou via API) execute código Python, JavaScript e bash no ambiente do usuário com aprovação por step. 52k estrelas no GitHub.',
+     analysis:'<strong>Agente de código maduro para produção local:</strong> a v2.0 resolve os principais problemas de segurança da v1 com sandboxing via Docker. <strong>Caso de uso imediato:</strong> automatizar tarefas de análise de dados, manipulação de arquivos e scraping sem depender de APIs externas. <strong>Atenção:</strong> mesmo com sandbox, revisar cuidadosamente as permissões concedidas ao container Docker — o modelo pode executar código com consequências reais.',
+     source:'GitHub Trending',url:'https://github.com',relevance:'medium',tags:['code-agent','local-LLM','Ollama','Docker-sandbox']},
+
+    {lang:'pt',category:'repos',title:'LangGraph Brasil: Templates para Agentes Multi-Tarefa em PT-BR',title_pt:'LangGraph Brasil: Templates de Agentes Multi-Tarefa em Português',
+     summary:'Repositório da comunidade brasileira com 12 templates prontos de agentes LangGraph para casos de uso locais: atendimento ao cliente em PT-BR, análise de documentos governamentais (CNPJ, CPF, NFe), integração com APIs brasileiras (ViaCEP, IBGE, Banco Central). Cada template inclui testes e documentação em português.',
+     analysis:'<strong>Acelerador para o ecossistema local:</strong> templates testados com APIs e formatos de dados brasileiros economizam dias de desenvolvimento para times nacionais. <strong>Qualidade técnica:</strong> os templates seguem boas práticas de LangGraph (state machines explícitas, checkpointing) e são revisados pela comunidade. <strong>Contribuição:</strong> repositório ativo com 8 PRs abertos — oportunidade de contribuição com templates específicos do seu domínio.',
+     source:'GitHub — Comunidade BR',url:'https://github.com',relevance:'medium',tags:['LangGraph','PT-BR','templates','community']},
+
+    {lang:'zh',category:'architecture',title:'向量数据库选型指南2026 — 机器之心',title_pt:'Guia de Seleção de Vector Databases 2026 — 机器之心',
+     summary:'Comparativo aprofundado de 8 vector databases (Milvus, Qdrant, Weaviate, Pinecone, Chroma, pgvector, Vespa, Redis Vector) em 12 dimensões: throughput, latência P99, custo por 1M queries, suporte a hybrid search, licença e maturidade de produção. Benchmarks realizados em conjunto de dados de 10M vetores (1536 dims).',
+     analysis:'<strong>A decisão mais impactante na arquitetura RAG:</strong> a escolha do vector store afeta custo, latência e capacidade de hybrid search de forma difícil de reverter. Este comparativo com 10M vetores é o mais realista publicado em 2026. <strong>Resultado principal:</strong> Milvus lidera em throughput, Qdrant em latência P99, pgvector em custo total para escalas < 5M vetores. <strong>Para novos projetos RAG:</strong> usar esta tabela antes de escolher o vector store é obrigatório.',
+     source:'机器之心 Synced',url:'https://jiqizhixin.com',relevance:'medium',tags:['vector-db','comparison','Milvus','Qdrant','pgvector']},
+
+    {lang:'en',category:'papers',title:'MoE Routing Optimization: Reducing Expert Load Imbalance by 60%',title_pt:'Otimização de Roteamento MoE: Redução de 60% em Desequilíbrio de Especialistas',
+     summary:'Paper do Google DeepMind abordando o problema crítico de load imbalance em modelos Mixture-of-Experts (MoE): tokens se acumulam em poucos especialistas, desperdiçando capacidade dos demais. Nova técnica de roteamento com regularização adaptativa reduz imbalance em 60% e melhora throughput de treinamento em 23%. Aplicável ao Gemini 1.5 e modelos MoE abertos como Mixtral.',
+     analysis:'<strong>Relevância crescente com a popularização de MoE:</strong> Mixtral, Qwen-MoE e outros modelos abertos MoE estão em produção em centenas de times. Este paper resolve um problema que afeta diretamente eficiência de treinamento e qualidade do modelo final. <strong>Impacto prático:</strong> times treinando ou fine-tuning modelos MoE devem avaliar aplicação da técnica — ganho de 23% em throughput é substancial em runs de múltiplos dias.',
+     source:'Google DeepMind',url:'https://deepmind.google',relevance:'medium',tags:['MoE','routing','load-balancing','DeepMind']},
+
+    {lang:'zh',category:'papers',title:'思维链推理的局限性研究 — 北京大学',title_pt:'Limitações do Chain-of-Thought Reasoning — Estudo da Peking University',
+     summary:'Paper da PKU que questiona premissas estabelecidas sobre Chain-of-Thought (CoT): identifica que em 34% das queries matemáticas testadas, o raciocínio explícito no CoT não corresponde ao processo interno que gerou a resposta correta — o modelo "inventa" uma justificativa post-hoc. Isso tem implicações sérias para o uso de CoT como ferramenta de auditabilidade.',
+     analysis:'<strong>Paper importante e desconfortável:</strong> ele desafia uma crença amplamente adotada — que o CoT torna o raciocínio do modelo transparente e auditável. Se o raciocínio mostrado é parcialmente post-hoc, o uso de CoT para explicabilidade em sistemas críticos precisa ser reconsiderado. <strong>Implicação prática:</strong> usar CoT para melhorar qualidade de resposta ainda é válido. Usar CoT como prova de processo de raciocínio auditável é problemático. <strong>Ação recomendada:</strong> revisar como sua organização usa CoT em contextos de compliance.',
+     source:'PKU — Peking University',url:'https://arxiv.org',relevance:'medium',tags:['chain-of-thought','reasoning','auditability','limitations']},
+  ],
+
+  critique:[
+    {type:'pos',label:'Avanço técnico sólido e replicável',txt:'O paper da THUNLP sobre cross-verification passa nos critérios de rigor: testado em múltiplos modelos, resultados replicáveis, código publicado, overhead medido empiricamente. Redução de 40% em alucinações com 15% de latência adicional é um tradeoff claramente favorável para a maioria dos sistemas de produção. Raro ver um paper aplicado com esta combinação de impacto e praticidade.'},
+    {type:'pos',label:'Stack open-source RAG atingiu maturidade simultânea',txt:'A convergência de LightRAG v2.0 + Milvus 2.5 + Instructor v1.5 + Contextual Retrieval no mesmo dia é significativa. Pela primeira vez em 2026, <strong>todas as camadas de um pipeline RAG completo têm alternativas open-source estáveis e maduras</strong>. Isso reduz lock-in em provedores proprietários e fundamenta decisões de adoção com menor risco técnico.'},
+    {type:'pos',label:'Modelos compactos especializados provam viabilidade econômica',txt:'Três datapoints independentes (Phi-4 Mini, Qwen2.5-VL, DeepSeek-Coder-V3) confirmam que modelos 3-33B especializados são competitivos com generalistas 100-175B+ em seus domínios. Com custo de inferência 5-10x menor, o argumento econômico para migração de arquiteturas monolíticas para ecossistemas de especialistas está estabelecido.'},
+    {type:'neg',label:'Benchmarks em hardware premium distorcem projeções de adoção',txt:'FlashAttention-3 (H100), MegaScale (cluster de 1024 GPUs), e vários outros papers reportam métricas exclusivamente em hardware de última geração. Times com infraestrutura A100, V100 ou cloud econômica obtêm ganhos substancialmente menores — em alguns casos negligenciáveis. A falta de benchmarks em hardware acessível é uma falha sistemática de publicação que distorce decisões de investimento.'},
+    {type:'neg',label:'Paper PKU sobre CoT levanta questão sério sobre auditabilidade',txt:'Se <strong>34% do raciocínio CoT é post-hoc</strong> (construído após a resposta, não antes), o uso de CoT como mecanismo de transparência e auditabilidade em sistemas regulados é problemático. Times usando CoT para compliance em áreas como saúde, finanças e direito devem revisar suas premissas de explicabilidade com urgência.'},
+    {type:'neg',label:'Benchmark PT-BR com dataset pequeno: usar com cautela',txt:'O benchmark USP/UNICAMP, embora pioneiro e valioso, usa 1.2k amostras — insuficiente para conclusões estatisticamente robustas em subdomínios específicos. Os números de performance por modelo (78.3% vs 74.1%) têm intervalos de confiança amplos. Aguardar a versão 2.0 com 10k amostras antes de usar para decisões críticas de seleção de modelo.'},
+    {type:'neu',label:'MegaScale: oportunidade com risco de manutenção',txt:'Frameworks open-source de grandes empresas de tecnologia têm histórico misto: alguns tornam-se projetos comunitários vibrantes (PyTorch), outros são abandonados após 2-3 anos (ONNX Runtime, diversas iniciativas do Google). O MegaScale é tecnicamente excelente, mas a decisão de adoção deve incluir um plano de contingência se a ByteDance reduzir o suporte.'},
+    {type:'wat',label:'Atenção: roteamento de LLMs como nova infraestrutura crítica',txt:'Com a proliferação de modelos especializados, o <strong>roteador de LLMs</strong> (que decide qual modelo usar para cada query) torna-se uma peça de infraestrutura crítica. Hoje não há um padrão estabelecido para essa camada. Projetos como LiteLLM, RouteLLM e OpenRouter estão competindo para definir esse padrão. Vale monitorar qual vence — a dependência de um roteador específico criará novo lock-in.'},
+    {type:'wat',label:'Atenção: coberturas ZH revelam velocidade maior que EN percebe',txt:'As 8 fontes chinesas de hoje mostram publicações que não aparecem nos feeds em inglês por 3-7 dias. A velocidade de pesquisa e desenvolvimento na China em IA está significativamente subestimada por quem só consome fontes ocidentais. Times que não monitoram fontes ZH sistematicamente estão operando com informação desatualizada em áreas críticas como eficiência de inferência e modelos multimodais.'},
+  ],
+
+  watch:[
+    {ico:'MOE',cls:'ico-ml',label:'Arquitetura',title:'Roteadores de LLM como nova infraestrutura crítica',txt:'Com 5+ modelos especializados no stack, o roteador vira gargalo. RouteLLM, LiteLLM e OpenRouter disputam padrão. Próximos 30 dias definirão qual prevalece.'},
+    {ico:'AGT',cls:'ico-rag',label:'Agentes',title:'Open-Interpreter 2.0 acelera adoção de agentes de código locais',txt:'O sandboxing Docker remove a barreira de segurança principal. Esperar surge de ferramentas de automação baseadas nele nas próximas semanas.'},
+    {ico:'FIN',cls:'ico-ops',label:'FinOps',title:'Stack RAG open-source vai pressionar preços de RAG proprietário',txt:'Com Milvus 2.5 + LightRAG + Instructor, o custo de replicar funcionalidades de plataformas RAG pagas cai dramaticamente. Monitorar movimentos de pricing da Pinecone e Weaviate.'},
+    {ico:'REG',cls:'ico-zh',label:'Regulação',title:'Implicações do paper PKU sobre auditabilidade de CoT',txt:'Se CoT não é auditável, sistemas regulados precisam de alternativas. Monitorar resposta da comunidade de IA explicável e movimentos regulatórios na UE e Brasil.'},
+    {ico:'BR',cls:'ico-pt',label:'Ecossistema BR',title:'Benchmark PT-BR v2.0 vai fundamentar projetos de fine-tuning local',txt:'Com 10k amostras planejadas para Q3 2026, o benchmark nacional se tornará base para fine-tuning empresarial. Times com produto para mercado brasileiro devem acompanhar.'},
+    {ico:'ZH',cls:'ico-dl',label:'Modelos ZH',title:'Qwen e DeepSeek avançam mais rápido que relatado na mídia ocidental',txt:'Dois SOTA em um dia sugere cadência alta. Monitorar 量子位 e PaperWeekly para primeiros sinais de novos releases antes que apareçam no HuggingFace.'},
+  ],
+
+  glossary:[
+    {term:'RAG Adaptativo',def:'Variação do Retrieval-Augmented Generation onde a quantidade de chunks recuperados é determinada dinamicamente pela complexidade da query, ao invés de um número fixo (top-k). Reduz custo em queries simples e melhora qualidade em queries complexas.'},
+    {term:'Cross-Verification (THUNLP)',def:'Técnica de inferência que mantém dois rascunhos de resposta paralelos e verifica consistência factual entre eles antes de confirmar cada sentença. Aplicável como wrapper sobre qualquer LLM sem retreinamento.'},
+    {term:'Contextual Retrieval',def:'Método de indexação RAG que adiciona um parágrafo de contexto do documento inteiro a cada chunk antes de embedar, resolvendo o problema de "orphan chunks" que perdem significado fora do documento original.'},
+    {term:'HNSW-SQ8',def:'Variante do algoritmo de indexação vetorial HNSW (Hierarchical Navigable Small World) com quantização escalar de 8 bits. Reduz uso de memória em ~60% com degradação de recall de ~3% — tradeoff favorável para a maioria dos casos de produção.'},
+    {term:'Ping-Pong Scheduling (FA3)',def:'Técnica de otimização no FlashAttention-3 que sobrepõe operações GEMM e softmax alternadamente (como um ping-pong), maximizando utilização dos Tensor Cores da arquitetura Hopper do H100.'},
+    {term:'Warp Specialization',def:'Técnica de programação CUDA onde diferentes warps (grupos de 32 threads paralelas) são designados para tarefas específicas (produtores vs consumidores de dados), reduzindo sincronização e aumentando throughput.'},
+    {term:'Community Detection (LightRAG)',def:'Algoritmo que identifica automaticamente clusters de nós densamente conectados no grafo de conhecimento, permitindo queries temáticas que operam sobre um subgrafo coerente ao invés de todos os nós.'},
+    {term:'CoT Post-Hoc',def:'Fenômeno identificado pelo paper da PKU onde o raciocínio Chain-of-Thought gerado pelo modelo é construído após a resposta (justificativa retroativa) ao invés de ser o processo que gerou a resposta. Implica que CoT não é necessariamente uma janela confiável para o raciocínio interno do modelo.'},
+    {term:'MoE Load Imbalance',def:'Problema em modelos Mixture-of-Experts onde o mecanismo de roteamento direciona tokens desproporcionalmente para um subconjunto de especialistas, deixando outros subutilizados e degradando tanto eficiência de treinamento quanto qualidade do modelo.'},
+    {term:'Speculative Decoding',def:'Técnica de aceleração de inferência onde um modelo pequeno (draft model) gera tokens candidatos que são verificados em paralelo pelo modelo maior. Reduz latência sem alterar qualidade, pois o modelo grande ainda valida cada token.'},
+  ],
+};
+
+const HISTORY=[
+  {date:'2026-04-16',today:true,title:'RAG Confiável + Modelos Especializados Redefinem Stack de IA',count:23},
+  {date:'2026-04-15',title:'GPT-4.1 Mini — contexto de 1M tokens lançado',count:21},
+  {date:'2026-04-14',title:'Claude Code Routines — automação cloud sem laptop aberto',count:18},
+  {date:'2026-04-13',title:'Survey: LLMs em sistemas críticos de saúde — riscos reais',count:20},
+  {date:'2026-04-12',title:'Benchmark unificado de modelos multimodais — 42 avaliados',count:17},
+  {date:'2026-04-11',title:'Meta lança Llama 4 Scout + Maven — open-source multimodal',count:22},
+  {date:'2026-04-10',title:'vLLM v0.5 — 40% redução em latência P99 de inferência',count:19},
+  {date:'2026-04-09',title:'Qwen 2.5 Coder — SOTA em geração de código ZH+EN',count:16},
+  {date:'2026-04-08',title:'Survey RLHF 2026: alinhamento além do PPO',count:20},
+];
+
+async function init(){
+  const d=new Date();
+  document.getElementById('ndate').textContent=
+    d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase();
+
+  // Tenta buscar JSON do GitHub; usa dados mock se falhar (ex: rodar local)
+  if(GITHUB_USER !== 'SEU_USUARIO'){
+    try{
+      showLoadingState(true);
+      const res = await fetch(`${GITHUB_RAW}/data/latest.json`);
+      if(res.ok){
+        const fresh = await res.json();
+        // Substitui o objeto D pelos dados reais do GitHub
+        Object.assign(D, fresh);
+      }
+    }catch(e){
+      console.warn('GitHub fetch falhou, usando dados mock:', e.message);
+    }finally{
+      showLoadingState(false);
+    }
+  }
+
+  rCover(); rExec(); rDiagrams(); rCorr(); rNews(); rCrit(); rWatch(); rGloss();
+  rTicker(); rRail();
+  setupAnchors();
+}
+
+function showLoadingState(on){
+  const el = document.getElementById('loading-overlay');
+  if(el) el.style.display = on ? 'flex' : 'none';
+}
+
+function rCover(){
+  document.getElementById('ck').textContent=`Relatório de inteligência · ${D.date}`;
+  document.getElementById('ct').innerHTML=D.headline.replace(/(.+? em )(.+?)( )/,'$1<em>$2</em>$3');
+  document.getElementById('cl').innerHTML=D.lead;
+  document.getElementById('chls').innerHTML=D.highlights.map(h=>`<span class="chl">${h}</span>`).join('');
+  const lc=D.lang_counts;
+  document.getElementById('cs-t').textContent=D.items.length;
+  document.getElementById('cs-e').textContent=lc.en;
+  document.getElementById('cs-p').textContent=lc.pt;
+  document.getElementById('cs-z').textContent=lc.zh;
+  document.getElementById('cs-h').textContent=D.items.filter(i=>i.relevance==='high').length;
+}
+
+function rExec(){
+  const body=document.getElementById('exec-body');
+  body.innerHTML=`<div class="prose">${D.exec_paragraphs.map(p=>`<p>${p}</p>`).join('')}</div>`;
+  body.innerHTML+=`<div class="callout"><div class="callout-title">Blueprint do dia</div>${D.callout}</div>`;
+}
+
+function rDiagrams(){
+  document.getElementById('diag1').textContent=D.diag1;
+  document.getElementById('diag2').textContent=D.diag2;
+  document.getElementById('diag3').textContent=D.diag3;
+  document.getElementById('cap1').textContent=D.cap1;
+  setTimeout(()=>mermaid.run({querySelector:'.mermaid'}),200);
+}
+
+function rCorr(){
+  document.getElementById('corr-list').innerHTML=D.correlations.map(c=>`
+    <div class="corr">
+      <div class="corr-h">
+        <div class="corr-ico ${c.cls}">${c.icon}</div>
+        <div class="corr-meta">
+          <div class="corr-title">${c.title}</div>
+          <div class="corr-srcs">${c.srcs.map(s=>`<span class="cs2">${s}</span>`).join('')}</div>
+        </div>
+      </div>
+      <div class="corr-body">${c.body.split('\n\n').map(p=>`<p style="margin-bottom:12px">${p.trim()}</p>`).join('').replace(/<p style="margin-bottom:12px"><\/p>/g,'')}</div>
+      <div class="corr-impact"><span>Impacto prático:</span> ${c.impact}</div>
+    </div>`).join('');
+}
+
+function rNews(){
+  const langs=[
+    {k:'en',lbl:'EN',cls:'lf-en',name:'Inglês — pesquisa, modelos e ferramentas internacionais'},
+    {k:'pt',lbl:'PT',cls:'lf-pt',name:'Português — ecossistema e comunidade brasileira'},
+    {k:'zh',lbl:'ZH',cls:'lf-zh',name:'Chinês — laboratórios acadêmicos e ecossistema asiático'},
+  ];
+  document.getElementById('news-blocks').innerHTML=langs.map(l=>{
+    const items=D.items.filter(i=>i.lang===l.k);
+    return `<div class="lang-block">
+      <div class="lang-hdr">
+        <span class="lf ${l.cls}">${l.lbl}</span>
+        <span class="lh-name">${l.name}</span>
+        <span class="lh-count">${items.length} fontes</span>
+      </div>
+      <div class="news-list">${items.map(item=>nHTML(item)).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+function nHTML(item){
+  const cc=CAT[item.category]||{l:item.category,c:'nb-def'};
+  const tags=(item.tags||[]).map(t=>`<span class="ntag">${t}</span>`).join('');
+  const origLine=item.title&&item.title!==item.title_pt
+    ?`<div class="news-orig">${item.title}</div>`:'';
+  const link=item.url&&item.url!=='null'
+    ?`<a class="nf-link" href="${item.url}" target="_blank">fonte →</a>`:'';
+  return `<div class="news${item.relevance==='high'?' hi':''}">
+    <div class="news-top">
+      <span class="nb ${cc.c}">${cc.l}</span>
+      ${item.relevance==='high'?'<span class="hi-tag">DESTAQUE</span>':''}
+    </div>
+    <div class="news-title">${item.title_pt||item.title}</div>
+    ${origLine}
+    <div class="news-sum">${item.summary}</div>
+    ${item.analysis?`<div class="news-analysis-block"><div class="nab-label">Análise de impacto</div><div class="nab-txt">${item.analysis}</div></div>`:''}
+    <div class="news-foot">
+      <span class="nf-src">${item.source}</span>
+      <div class="nf-tags">${tags}</div>
+      ${link}
+    </div>
+  </div>`;
+}
+
+function rCrit(){
+  const typeMap={pos:'cb-pos',neg:'cb-neg',neu:'cb-neu',wat:'cb-wat'};
+  const lblMap={pos:'cl-pos',neg:'cl-neg',neu:'cl-neu',wat:'cl-wat'};
+  document.getElementById('crit-list').innerHTML=D.critique.map(c=>`
+    <div class="crit">
+      <div class="crit-bar ${typeMap[c.type]}"></div>
+      <div class="crit-in">
+        <div class="crit-lbl ${lblMap[c.type]}">${c.label}</div>
+        <div class="crit-txt">${c.txt}</div>
+      </div>
+    </div>`).join('');
+}
+
+function rWatch(){
+  document.getElementById('watch-grid').innerHTML=D.watch.map(w=>`
+    <div class="wcard">
+      <div class="wcard-top">
+        <div class="wcard-ico ${w.cls}">${w.ico}</div>
+        <span class="wcard-label" style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#50506a">${w.label}</span>
+      </div>
+      <div class="wcard-title">${w.title}</div>
+      <div class="wcard-txt">${w.txt}</div>
+    </div>`).join('');
+}
+
+function rGloss(){
+  document.getElementById('gloss-list').innerHTML=D.glossary.map(g=>`
+    <div class="gt">
+      <div class="gt-term">${g.term}</div>
+      <div class="gt-def">${g.def}</div>
+    </div>`).join('');
+}
+
+function rTicker(){
+  const d2=[...D.items,...D.items];
+  document.getElementById('ticker').innerHTML=d2.map(i=>{
+    const cc=CAT[i.category]||{l:i.category};
+    return `<div class="tki"><span class="nb ${cc.c}" style="font-size:8px">${cc.l}</span>${i.title_pt||i.title}</div>`;
+  }).join('');
+}
+
+function rRail(){
+  document.getElementById('rail-hist').innerHTML=HISTORY.map(h=>`
+    <div class="ri${h.today?' today':''}">
+      <div class="ri-date">${h.date.slice(5)}</div>
+      <div class="ri-title">${h.title}</div>
+      <div class="ri-n">${h.count} fontes</div>
+    </div>`).join('');
+}
+
+function goTo(id){
+  const el=document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function setupAnchors(){
+  const secs=['cover','exec','diagrams','corr','news','crit','watch','gloss'];
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id=e.target.id;
+        document.querySelectorAll('.anc').forEach(b=>b.classList.remove('on'));
+        const idx=secs.indexOf(id);
+        if(idx>=0) document.querySelectorAll('.anc')[idx]?.classList.add('on');
+      }
+    });
+  },{threshold:0.2});
+  secs.forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
+}
+
+
+// ─── STORAGE KEY PREFIX ───
+const STORE_PREFIX = 'capinews:report:';
+
+// ─── VIEW MANAGEMENT ───
+let currentView = 'report';
+function showView(v) {
+  currentView = v;
+  document.getElementById('view-report').style.display = v === 'report' ? '' : 'none';
+  document.getElementById('view-history').style.display = v === 'history' ? '' : 'none';
+  document.querySelectorAll('.anc').forEach(b => b.classList.remove('on'));
+  if (v === 'report') document.getElementById('anc-report')?.classList.add('on');
+  if (v === 'history') { document.getElementById('anc-hist')?.classList.add('on'); loadHistoryView(); }
+}
+
+// ─── SAVE REPORT ───
+async function saveReport() {
+  const btn = document.getElementById('save-btn');
+  if (!btn || btn.disabled) return;
+  btn.disabled = true;
+  btn.textContent = 'Salvando...';
+  try {
+    const snapshot = buildSnapshot();
+    await window.storage.set(STORE_PREFIX + snapshot.date, JSON.stringify(snapshot));
+    btn.textContent = 'Salvo!';
+    btn.classList.add('saved');
+    setTimeout(() => { btn.textContent = 'Salvar hoje'; btn.classList.remove('saved'); btn.disabled = false; }, 2500);
+  } catch(e) {
+    btn.textContent = 'Erro — tentar de novo';
+    btn.disabled = false;
+    console.error('Save failed:', e);
+  }
+}
+
+function buildSnapshot() {
+  return {
+    date: D.date,
+    headline: D.ct || D.summary?.[0] || '',
+    lead: D.cl || (D.summary?.[0] || '').replace(/<[^>]*>/g,'').slice(0,180) + '...',
+    highlights: D.highlights || [],
+    lang_counts: D.lang_counts || {en:0,pt:0,zh:0},
+    total: D.items?.length || 0,
+    hi_count: D.items?.filter(i=>i.relevance==='high').length || 0,
+    summary: D.summary || [],
+    correlations: (D.correlations||[]).map(c=>({title:c.title||c.t,body:(c.body||c.b||'').replace(/<[^>]*>/g,'').slice(0,300),icon:c.icon||c.ico||''})),
+    critique: (D.critique||[]).map(c=>({type:c.type,label:c.label||c.lbl,text:(c.txt||c.text||'').slice(0,200)})),
+    items: (D.items||[]).map(i=>({lang:i.lang,category:i.category,title_pt:i.title_pt||i.title,summary:(i.summary||'').slice(0,180),source:i.source,relevance:i.relevance,tags:(i.tags||[]).slice(0,3)})),
+    saved_at: new Date().toISOString(),
+  };
+}
+
+// ─── LOAD HISTORY VIEW ───
+async function loadHistoryView() {
+  const container = document.getElementById('view-history');
+  container.innerHTML = '<div style="padding:60px 0;text-align:center;font-family:var(--mono);font-size:11px;color:#50506a">Carregando histórico...</div>';
+
+  // 1. Tenta buscar index.json do GitHub (lista de datas disponíveis)
+  let githubDates = [];
+  if(GITHUB_USER !== 'SEU_USUARIO'){
+    try{
+      const res = await fetch(`${GITHUB_RAW}/data/index.json`);
+      if(res.ok) githubDates = await res.json(); // array de strings "YYYY-MM-DD"
+    }catch(e){}
+  }
+
+  // 2. Carrega do storage local (relatórios salvos manualmente)
+  let storageKeys = [];
+  try {
+    const keysResult = await window.storage.list(STORE_PREFIX);
+    storageKeys = keysResult?.keys || [];
+  } catch(e) {}
+
+  // 3. Merge: GitHub + storage, sem duplicatas, ordenado desc
+  const allDates = [...new Set([...githubDates, ...storageKeys.map(k=>k.replace(STORE_PREFIX,''))])].sort().reverse();
+  renderHistoryView(container, storageKeys, githubDates, allDates);
+}
+
+async function renderHistoryView(container, storageKeys, githubDates, allDates) {
+
+async function renderHistoryView(container, storageKeys, githubDates, allDates) {
+  const today = new Date().toISOString().split('T')[0];
+  let totalSources = 0, totalReports = keys.length;
+
+  // Load reports: first from storage, then from GitHub for dates not in storage
+  const reports = [];
+  const today = new Date().toISOString().split('T')[0];
+  for (const dateStr of allDates) {
+    try {
+      // Try storage first
+      const storKey = STORE_PREFIX + dateStr;
+      let data = null;
+      try {
+        const r = await window.storage.get(storKey);
+        if(r?.value) data = JSON.parse(r.value);
+      } catch(e){}
+      // If not in storage and date is in GitHub, fetch from GitHub
+      if(!data && githubDates.includes(dateStr) && GITHUB_USER !== 'SEU_USUARIO'){
+        try{
+          const res = await fetch(`${GITHUB_RAW}/data/${dateStr}.json`);
+          if(res.ok) data = await res.json();
+        }catch(e){}
+      }
+      if(data){
+        reports.push(data);
+        totalSources += data.total || 0;
+      }
+    } catch(e) {}
+  }
+
+  const avgSources = reports.length > 0 ? Math.round(totalSources / reports.length) : 0;
+  const todayReport = reports.find(r => r.date === today);
+
+  container.innerHTML = `
+    <div class="hv-cover">
+      <div class="hv-kicker">Arquivo histórico</div>
+      <h2 class="hv-title">Relatórios diários salvos</h2>
+      <p class="hv-sub">Cada edição contém o relatório completo do dia — resumo executivo, correlações, análise crítica, pipeline e todas as fontes analisadas.</p>
+      <div class="hv-stats-row">
+        <div class="hv-s"><div class="hv-s-n">${totalReports}</div><div class="hv-s-l">Edições</div></div>
+        <div class="hv-s"><div class="hv-s-n">${totalSources}</div><div class="hv-s-l">Fontes total</div></div>
+        <div class="hv-s"><div class="hv-s-n">${avgSources || '—'}</div><div class="hv-s-l">Média/dia</div></div>
+        <div class="hv-s"><div class="hv-s-n">${todayReport ? 'Sim' : 'Não'}</div><div class="hv-s-l">Hoje salvo</div></div>
+      </div>
+    </div>
+    ${reports.length === 0 ? `
+      <div class="hist-empty">
+        <div class="he-i">[~]</div>
+        <div class="he-t">Nenhum relatório salvo ainda</div>
+        <p class="he-s">Clique em <strong>Salvar hoje</strong> no topo para guardar a edição atual no histórico. Cada relatório fica disponível para consulta a qualquer momento.</p>
+      </div>` : `
+      <div class="hgrid">
+        ${reports.map(r => histCardHTML(r, today)).join('')}
+      </div>`}
+  `;
+}
+
+function histCardHTML(r, today) {
+  const isToday = r.date === today;
+  const dateStr = r.date ? new Date(r.date + 'T12:00:00').toLocaleDateString('pt-BR', {weekday:'short',day:'2-digit',month:'short',year:'numeric'}) : r.date;
+  const hls = (r.highlights || []).slice(0, 3).map(h => `<span class="hcard-hl">${h}</span>`).join('');
+  const langMeta = `EN ${r.lang_counts?.en||0} · PT ${r.lang_counts?.pt||0} · ZH ${r.lang_counts?.zh||0}`;
+  const leadText = (r.lead || '').replace(/<[^>]*>/g, '').slice(0, 120);
+  return `
+    <div class="hcard${isToday?' hcard-today':''}" onclick="openReader('${r.date}')">
+      <div class="hcard-h">
+        <div class="hcard-date">${dateStr.toUpperCase()}${isToday?' · HOJE':''}</div>
+        <div class="hcard-title">${r.headline ? r.headline.replace(/<[^>]*>/g,'').slice(0,80) : 'Relatório ' + r.date}</div>
+        ${leadText ? `<div class="hcard-lead">${leadText}</div>` : ''}
+      </div>
+      <div class="hcard-b">
+        <div class="hcard-meta">
+          <span class="hcard-badge">${r.total||0} fontes</span>
+          <span class="hcard-badge">${r.hi_count||0} destaques</span>
+          <span class="hcard-badge">${langMeta}</span>
+        </div>
+        ${hls ? `<div class="hcard-hls">${hls}</div>` : ''}
+      </div>
+      <div class="hcard-f">
+        <span class="hcard-ft">${r.saved_at ? new Date(r.saved_at).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) + ' salvo' : ''}</span>
+        <span class="hcard-open">ver relatório →</span>
+        <button class="hcard-del" onclick="deleteReport(event,'${r.date}')">✕</button>
+      </div>
+    </div>`;
+}
+
+async function deleteReport(e, date) {
+  e.stopPropagation();
+  if (!confirm(`Excluir o relatório de ${date}?`)) return;
+  try {
+    await window.storage.delete(STORE_PREFIX + date);
+    loadHistoryView();
+  } catch(e) { console.error(e); }
+}
+
+// ─── READER MODAL ───
+async function openReader(date) {
+  let data = null;
+  if (date === D.date) {
+    data = buildSnapshot();
+  } else {
+    try {
+      const r = await window.storage.get(STORE_PREFIX + date);
+      if (r?.value) data = JSON.parse(r.value);
+    } catch(e) {}
+  }
+  if (!data) return;
+
+  const overlay = document.getElementById('reader-overlay');
+  const dateStr = new Date(data.date + 'T12:00:00').toLocaleDateString('pt-BR', {weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+
+  const headline = (data.headline || 'Relatório ' + data.date).replace(/<[^>]*>/g,'');
+  const hls = (data.highlights||[]).map(h=>`<span class="hcard-hl">${h}</span>`).join(' ');
+
+  const summaryHTML = (data.summary||[]).map(p=>`<p>${p}</p>`).join('');
+
+  const corrHTML = (data.correlations||[]).map(c=>`
+    <div class="corr-mini">
+      <div class="cm-t">${c.title||''}</div>
+      <div class="cm-b">${(c.body||'').slice(0,280)}${(c.body||'').length>280?'...':''}</div>
+    </div>`).join('');
+
+  const typeMap = {pos:'cr-pos',neg:'cr-neg',neu:'cr-neu',wat:'cr-neu'};
+  const lblMap = {pos:'crl-pos',neg:'crl-neg',neu:'crl-neu',wat:'crl-neu'};
+  const critHTML = (data.critique||[]).map(c=>`
+    <div class="crit-r">
+      <div class="cr-bar ${typeMap[c.type]||'cr-neu'}"></div>
+      <div class="cr-in">
+        <div class="cr-lbl ${lblMap[c.type]||'crl-neu'}">${c.label||''}</div>
+        <div class="cr-txt">${(c.text||'').slice(0,200)}${(c.text||'').length>200?'...':''}</div>
+      </div>
+    </div>`).join('');
+
+  const langs = [{k:'en',l:'EN',c:'nb-papers'},{k:'pt',l:'PT',c:'nb-rag'},{k:'zh',l:'ZH',c:'nb-ml'}];
+  const newsHTML = langs.map(lg => {
+    const items = (data.items||[]).filter(i=>i.lang===lg.k);
+    if(!items.length) return '';
+    const cc_map = {papers:'nb-papers',rag:'nb-rag',ml:'nb-ml',architecture:'nb-arch',deeplearning:'nb-dl',repos:'nb-repos',videos:'nb-videos'};
+    return `<div style="margin-bottom:14px">
+      <div style="font-family:var(--mono);font-size:9px;color:#50506a;margin-bottom:8px;letter-spacing:.08em">${lg.l} — ${items.length} fontes</div>
+      ${items.map(i=>`<div class="news-r">
+        <div class="nr-top"><span class="nb ${cc_map[i.category]||'nb-papers'}" style="font-size:8px">${i.category||''}</span>${i.relevance==='high'?'<span style="font-family:var(--mono);font-size:8px;color:var(--amber)">DESTAQUE</span>':''}</div>
+        <div class="nr-t">${i.title_pt||i.title||''}</div>
+        <div class="nr-s">${(i.summary||'').slice(0,160)}${(i.summary||'').length>160?'...':''}</div>
+      </div>`).join('')}
+    </div>`;
+  }).join('');
+
+  document.getElementById('reader-date').textContent = dateStr.toUpperCase();
+  document.getElementById('reader-title').textContent = headline;
+  document.getElementById('reader-body').innerHTML = `
+    <div class="cover-like">
+      <h2>${headline.includes('<em>') ? headline : headline.replace(/( de | e | em | para | dos | das | das | um | uma )/i, (m,w,i)=>i>20?`<em>${w}</em>`:w)}</h2>
+      <p>${(data.lead||'').replace(/<[^>]*>/g,'')}</p>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">${hls}</div>
+    </div>
+    <div class="r-stats">
+      <div class="r-s"><div class="r-s-n">${data.total||0}</div><div class="r-s-l">Fontes</div></div>
+      <div class="r-s"><div class="r-s-n">${data.lang_counts?.en||0}</div><div class="r-s-l">EN</div></div>
+      <div class="r-s"><div class="r-s-n">${data.lang_counts?.pt||0}</div><div class="r-s-l">PT</div></div>
+      <div class="r-s"><div class="r-s-n">${data.lang_counts?.zh||0}</div><div class="r-s-l">ZH</div></div>
+      <div class="r-s"><div class="r-s-n">${data.hi_count||0}</div><div class="r-s-l">Destaques</div></div>
+    </div>
+    ${summaryHTML ? `<div class="rsec"><div class="rsec-label">Resumo executivo</div><div class="exec-mini">${summaryHTML}</div></div>` : ''}
+    ${corrHTML ? `<div class="rsec"><div class="rsec-label">Correlações (${(data.correlations||[]).length})</div>${corrHTML}</div>` : ''}
+    ${critHTML ? `<div class="rsec"><div class="rsec-label">Análise crítica</div>${critHTML}</div>` : ''}
+    ${newsHTML ? `<div class="rsec"><div class="rsec-label">Todas as fontes</div>${newsHTML}</div>` : ''}
+  `;
+  overlay.classList.add('open');
+}
+
+function closeReader() {
+  document.getElementById('reader-overlay').classList.remove('open');
+}
+
+init();
+</script>
+
+<!-- READER MODAL -->
+<div class="roverlay" id="reader-overlay" onclick="if(event.target===this)closeReader()">
+  <div class="rwrap">
+    <div class="rhead">
+      <div class="rhead-left">
+        <div class="rhead-date" id="reader-date"></div>
+        <div class="rhead-title" id="reader-title"></div>
+      </div>
+      <button class="rclose" onclick="closeReader()">✕</button>
+    </div>
+    <div class="rbody" id="reader-body"></div>
+  </div>
+</div>
+
+</body>
+</html>
