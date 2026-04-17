@@ -1261,11 +1261,22 @@ function rExec(){
 }
 
 function rDiagrams(){
-  document.getElementById('diag1').textContent=D.diag1;
-  document.getElementById('diag2').textContent=D.diag2;
-  document.getElementById('diag3').textContent=D.diag3;
-  document.getElementById('cap1').textContent=D.cap1;
-  setTimeout(()=>mermaid.run({querySelector:'.mermaid'}),200);
+  function setDiag(id,val){
+    const el=document.getElementById(id);
+    if(!el)return;
+    const wrap=el.closest('.diagram');
+    if(!val){if(wrap)wrap.style.display='none';return;}
+    el.textContent=val;
+  }
+  setDiag('diag1',D.diag1);
+  setDiag('diag2',D.diag2);
+  setDiag('diag3',D.diag3);
+  document.getElementById('cap1').textContent=D.cap1||'';
+  if(D.diag1||D.diag2||D.diag3){
+    setTimeout(()=>mermaid.run({querySelector:'.mermaid:not(:empty)'}),200);
+  } else {
+    document.getElementById('diagrams').style.display='none';
+  }
 }
 
 function rCorr(){
