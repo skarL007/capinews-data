@@ -1,0 +1,124 @@
+{
+  "items": [
+    {
+      "lang": "en",
+      "category": "papers",
+      "title": "Towards a Science of Scaling Agent Systems",
+      "title_pt": "Rumo a uma Ciência da Escalabilidade de Sistemas de Agentes",
+      "summary": "Pesquisadores desenvolveram princípios quantitativos de escala para sistemas multi-agente, validados em 260 configurações e quatro arquiteturas (Independente, Centralizada, Descentralizada, Híbrida). O trabalho fornece modelos preditivos que permitem escolher a arquitetura certa antes de implementar em produção.",
+      "analysis": "Primeira framework matemática para escalar agentes LLM com previsibilidade: engenheiros podem agora estimar custo/desempenho de orquestrações multi-agente antes do deployment.",
+      "source": "arXiv",
+      "url": "https://arxiv.org/abs/2512.08296",
+      "relevance": "high",
+      "tags": ["multi-agent","scaling","architecture"]
+    },
+    {
+      "lang": "en",
+      "category": "ml",
+      "title": "Llama-4 Scout-17B & Qwen3-72B Lead Open-Source Spring 2026",
+      "title_pt": "Llama-4 Scout-17B e Qwen3-72B Lideram o Open-Source na Primavera de 2026",
+      "summary": "Meta lançou o Llama-4 Scout-17B (MoE com 17B parâmetros ativos, rodando em uma única GPU de 48GB) e o Maverick-17B; a Alibaba lançou o Qwen3-72B, primeiro modelo open-source a superar GPT-4o no MMLU-Pro com 640k downloads na primeira semana. Ambos tornam obsoleta a dependência de APIs fechadas para tarefas de alto desempenho.",
+      "analysis": "A paridade open/closed chegou em benchmarks acadêmicos e de coding: arquiteturas de produção devem reavaliar custos de API vs. self-hosting para cargas de trabalho intensivas.",
+      "source": "Hugging Face Blog",
+      "url": "https://huggingface.co/blog/huggingface/state-of-os-hf-spring-2026",
+      "relevance": "high",
+      "tags": ["llama-4","qwen3","open-source","MoE"]
+    },
+    {
+      "lang": "en",
+      "category": "rag",
+      "title": "GraphRAG Achieves 99% Precision with Hybrid Retrieval in 2026",
+      "title_pt": "GraphRAG Atinge 99% de Precisão com Recuperação Híbrida em 2026",
+      "summary": "GraphRAG combina busca vetorial densa com taxonomias estruturadas e ontologias, alcançando precisão de até 99% em recuperação de conhecimento empresarial. O chunking contextual por distância cosseno garante coerência semântica em cada fragmento, reduzindo ruído no contexto enviado ao LLM.",
+      "analysis": "Pipelines RAG híbridos (denso + esparso + grafo) são agora o padrão de facto para RAG corporativo; ignorar grafos de conhecimento significa aceitar precisão 15-20% menor.",
+      "source": "RAG About It",
+      "url": "https://ragaboutit.com/retrieval-augmented-generation-in-enterprise-ai-whats-changing-in-2026/",
+      "relevance": "high",
+      "tags": ["graphrag","hybrid-retrieval","enterprise","knowledge-graph"]
+    },
+    {
+      "lang": "en",
+      "category": "repos",
+      "title": "google/adk-python & Hermes Agent Lead GitHub Trending April 2026",
+      "title_pt": "google/adk-python e Hermes Agent Lideram o GitHub Trending em Abril de 2026",
+      "summary": "O google/adk-python (8.2k stars) fornece um kit de desenvolvimento para sistemas multi-agente, enquanto o Hermes Agent (35.8k stars) introduziu auto-evolução: agentes escrevem habilidades em Markdown, armazenam em SQLite e buscam memória em tarefas similares. Meta-llama/llama-stack (6.4k stars) completa o trio com deployment unificado do Llama 4.",
+      "analysis": "O padrão de agentes auto-evolutivos com memória persistente em SQLite está se tornando infraestrutura commodity; projetos que não implementarem memória de habilidades ficarão atrás em eficiência operacional.",
+      "source": "Fazm AI Blog",
+      "url": "https://fazm.ai/blog/new-open-source-ai-projects-github-hugging-face-april-2026",
+      "relevance": "medium",
+      "tags": ["adk","hermes-agent","llama-stack","github-trending"]
+    },
+    {
+      "lang": "en",
+      "category": "architecture",
+      "title": "NVIDIA ISING: First Open-Source Quantum AI Model Family Released",
+      "title_pt": "NVIDIA ISING: Primeira Família de Modelos de IA Quântica Open-Source Lançada",
+      "summary": "A NVIDIA lançou o ISING, primeira família de modelos de IA quântica open-source, com velocidade de decodificação 2,5x superior e precisão de correção de erros quânticos 3x melhor, reduzindo o tempo de calibração de processadores quânticos de dias para horas. O lançamento sinaliza a convergência da IA clássica com computação quântica em pipelines de produção.",
+      "analysis": "Arquitetos de IA devem acompanhar o ISING como referência para workloads de otimização combinatória onde LLMs clássicos atingem limites de escala computacional.",
+      "source": "Qbitai / NVIDIA",
+      "url": "https://www.qbitai.com/2026/01/367308.html",
+      "relevance": "medium",
+      "tags": ["quantum-ai","nvidia","ising","open-source"]
+    },
+    {
+      "lang": "pt",
+      "category": "ml",
+      "title": "Amália: LLM Nacional Português tem Versão Final Prevista para Junho de 2026",
+      "title_pt": "Amália: LLM Nacional Português tem Versão Final Prevista para Junho de 2026",
+      "summary": "O modelo Amália (Assistente Multimodal Automático de Linguagem com Inteligência Artificial), desenvolvido por 60 pesquisadores portugueses, integra modalidades de texto, fala, imagem e vídeo com foco no português europeu. A versão final será lançada em junho de 2026, com aplicações prioritárias em educação, ciência e cultura.",
+      "analysis": "O Amália é o primeiro LLM soberano do espaço lusófono com cobertura multimodal real; representa uma oportunidade para sistemas que exigem compliance com dados em português europeu.",
+      "source": "RTP Notícias",
+      "url": "https://www.rtp.pt/noticias/economia/modelo-de-linguagem-ia-portugues-chama-se-amalia-e-versao-final-e-lancada-em-2026_n1615835",
+      "relevance": "medium",
+      "tags": ["amalia","llm-portugues","multimodal","soberania-digital"]
+    },
+    {
+      "lang": "pt",
+      "category": "architecture",
+      "title": "Brasil 2026: Agentes Autônomos e Integração com WhatsApp Definem a IA Contextualizada",
+      "title_pt": "Brasil 2026: Agentes Autônomos e Integração com WhatsApp Definem a IA Contextualizada",
+      "summary": "Com 15% dos brasileiros usando ChatGPT diariamente e o WhatsApp como canal dominante de comunicação, a tendência de IA no Brasil em 2026 aponta para agentes autônomos integrados ao ecossistema mobile local, não apenas adaptações de soluções importadas. O país enfrenta déficit crítico de profissionais em IA, mas lidera em adoção consumer na América Latina.",
+      "analysis": "Arquiteturas de agentes para o mercado brasileiro devem priorizar integração nativa com WhatsApp Business API e processamento de linguagem natural em português brasileiro coloquial.",
+      "source": "MBA IA e Big Data — USP ICMC",
+      "url": "https://mba.iabigdata.icmc.usp.br/tendencias-em-ia-para-2026-da-infraestrutura-critica-a-maturidade-tecnologica-em-uma-era-invisivel/",
+      "relevance": "medium",
+      "tags": ["brasil","whatsapp","agentes","adocao-ia"]
+    },
+    {
+      "lang": "zh",
+      "category": "ml",
+      "title": "全球权威大模型盲测榜单：阿里千问3.6登顶中国最强编程模型",
+      "title_pt": "Ranking Global Cego de LLMs: Alibaba Qwen 3.6-Plus Lidera como Modelo de Coding mais Forte da China",
+      "summary": "O Qwen 3.6-Plus da Alibaba alcançou o 2º lugar no ranking global de LLMs, superando OpenAI, Google e xAI em tarefas de geração de código e capacidades agentivas. Com 640k downloads na primeira semana, consolida a China como referência em modelos open-source competitivos para engenharia de software.",
+      "analysis": "Qwen 3.6-Plus é agora um candidato legítimo para substituir GPT-4o em pipelines de coding autônomo, especialmente em ambientes com restrições de custo ou latência de API.",
+      "source": "量子位 (Qbitai)",
+      "url": "https://www.qbitai.com/2026/04/395206.html",
+      "relevance": "high",
+      "tags": ["qwen3","alibaba","coding","benchmark"]
+    },
+    {
+      "lang": "zh",
+      "category": "deeplearning",
+      "title": "2026年具身智能量产元年：智元机器人实现万台下线",
+      "title_pt": "2026, Ano Zero da Produção em Massa de Inteligência Incorporada: Robôs Zhiyuan Atingem 10 Mil Unidades",
+      "summary": "A China declara 2026 como o 'ano zero da produção em massa de inteligência incorporada', com a Zhiyuan Robotics atingindo produção de 10 mil robôs humanoides. O setor evolui de 'customização por cena específica' para 'adaptação de capacidades gerais', com agentes autônomos compreendendo ambiente e generalizando tarefas.",
+      "analysis": "A convergência de LLMs com robótica física em escala industrial redefine o que é 'agente': arquitetos de IA precisam considerar pipelines de percepção multimodal + atuação física como próximo vetor de demanda.",
+      "source": "华尔街见闻 (Wall Street CN)",
+      "url": "https://wallstreetcn.com/articles/3762504",
+      "relevance": "medium",
+      "tags": ["embodied-ai","robotics","china","producao-em-massa"]
+    },
+    {
+      "lang": "zh",
+      "category": "architecture",
+      "title": "大模型推理加速2026：从500ms到80ms的完整优化路径",
+      "title_pt": "Aceleração de Inferência LLM 2026: Caminho Completo de Otimização de 500ms para 80ms",
+      "summary": "Engenheiros chineses publicaram um roteiro de 5 etapas para reduzir latência de inferência LLM de 500ms para 80ms: quantização INT8/INT4, otimização hierárquica de KV Cache, continuous batching, aceleração de kernels e decodificação especulativa. O ICLR 2026 também apresentou solução de uma linha de código para eliminar 'over-thinking' em modelos de raciocínio.",
+      "analysis": "A combinação de quantização + decodificação especulativa + KV Cache hierárquico é o novo patamar mínimo para LLMs em produção com SLA abaixo de 100ms.",
+      "source": "昇腾开源生态 (Ascend AI)",
+      "url": "https://ascendai.csdn.net/69c5d22154b52172bc64d7e2.html",
+      "relevance": "medium",
+      "tags": ["inference","optimization","latency","quantization"]
+    }
+  ]
+}
