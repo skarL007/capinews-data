@@ -1,0 +1,16 @@
+{
+  "date": "2026-04-17",
+  "headline": "Agentes autônomos escalam: da arquitetura multi-agente ao hardware quântico",
+  "lead": "A semana marca a convergência de <strong>modelos de linguagem com agentes autônomos de escala industrial</strong>, com Llama-4 e Qwen3-72B redefinindo o estado da arte open-source. Paralelamente, a <strong>NVIDIA lança ISING</strong>, o primeiro modelo quântico open-source, enquanto a otimização de inferência empurra latências de 500ms para 80ms em produção.",
+  "highlights": ["Llama-4","Qwen3-72B","GraphRAG","ISING-Quantum","Hermes-Agent"],
+  "lang_counts": {"en": 5, "pt": 2, "zh": 3},
+  "exec_paragraphs": [
+    "O lançamento simultâneo do Llama-4 Scout-17B (MoE single-GPU) e do Qwen3-72B — primeiro open-source a superar GPT-4o no MMLU-Pro — consolida a era dos modelos abertos competitivos, com implicações diretas para arquiteturas de produção que antes dependiam exclusivamente de APIs proprietárias.",
+    "O ecossistema de agentes amadurece em duas frentes: teoricamente, princípios quantitativos de escala para sistemas multi-agente foram validados em 260 configurações; na prática, o google/adk-python (8.2k stars) e o Hermes Agent (35k stars com auto-evolução) tornam esses padrões acessíveis a engenheiros em semanas, não meses."
+  ],
+  "callout": "Migre pipelines RAG para GraphRAG com busca híbrida: a precisão salta para 99% e o custo de reranking cai com chunking semântico contextual.",
+  "diag1": "",
+  "cap1": "",
+  "diag2": "",
+  "diag3": ""
+}
