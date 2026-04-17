@@ -1,0 +1,16 @@
+{
+  "date": "2026-04-17",
+  "headline": "Qwen3-72B supera GPT-4o open-source, Anthropic lança Mythos 5 e China expande investimento em IA+",
+  "lead": "O ecossistema de IA vive uma das semanas mais densas de 2026: <strong>Qwen3-72B</strong> torna-se o primeiro modelo open-source a superar o GPT-4o no MMLU-Pro, enquanto a <strong>Anthropic confirma o Claude Mythos 5</strong> com 10 trilhões de parâmetros. O governo chinês anuncia expansão de investimentos em infraestrutura de <strong>\"IA+\"</strong>, e o GraphRAG com grafos de conhecimento atinge 99% de precisão em buscas corporativas.",
+  "highlights": ["Qwen3-72B", "Claude Mythos 5", "GraphRAG", "NVIDIA ISING", "Amália LLM"],
+  "lang_counts": {"en": 5, "pt": 2, "zh": 3},
+  "exec_paragraphs": [
+    "O lançamento do Qwen3-72B pela Alibaba representa um marco histórico para o open-source: pela primeira vez um modelo de acesso aberto supera o GPT-4o no benchmark MMLU-Pro, acumulando 640 mil downloads na primeira semana. Paralelamente, a Anthropic confirmou o Claude Mythos 5 com 10 trilhões de parâmetros voltado para cibersegurança e coding avançado, enquanto a Google lançou o Gemma 4 multimodal e seu algoritmo de compressão que reduz uso de memória em 6x.",
+    "No domínio da infraestrutura de inferência, pesquisadores demonstraram otimização de latência LLM de 500ms para 80ms através de cinco camadas técnicas (quantização INT4, KV Cache hierárquico, batching contínuo, aceleração de kernel e decodificação especulativa). A NVIDIA lançou a família ISING — primeiro conjunto open-source de modelos de IA quântica — aumentando velocidade de decodificação em 2,5x. No front lusófono, Portugal lançou o primeiro leaderboard de LLMs dedicado ao português europeu e o modelo Amália aproxima-se de sua versão final prevista para junho."
+  ],
+  "callout": "Priorize GraphRAG com grafos de conhecimento em pipelines RAG corporativos e avalie migração para Qwen3-72B como backbone open-source, dado seu desempenho superior ao GPT-4o com menor custo operacional.",
+  "diag1": "",
+  "cap1": "",
+  "diag2": "",
+  "diag3": ""
+}
