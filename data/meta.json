@@ -1,0 +1,16 @@
+{
+  "date": "2026-04-19",
+  "headline": "Agentes autônomos de IA dominam a agenda global enquanto RAG vira infraestrutura crítica de produção",
+  "lead": "A semana consolida a <strong>era dos agentes LLM</strong>: do GAM (memória hierárquica em grafos) ao Google ADK Python com 8.200 estrelas, workflows agênticos tornam-se o novo padrão industrial. Paralelamente, <strong>RAG evoluiu para infraestrutura crítica</strong> com GraphRAG atingindo 99% de precisão e otimização de inferência reduzindo latência de 500ms para 80ms.",
+  "highlights": ["AgenticAI", "GraphRAG", "Gemma4", "QwenLeaderboard", "InferenceOptimization"],
+  "lang_counts": {"en": 5, "pt": 2, "zh": 3},
+  "exec_paragraphs": [
+    "O evento mais significativo do dia é a convergência entre arquitetura agêntica e memória persistente: o paper GAM (arxiv 2604.12285) apresenta desacoplamento entre codificação e consolidação de memória em grafos hierárquicos, exatamente quando o Google lança seu ADK Python e a Anthropic anuncia o Claude Mythos 5 com 10 trilhões de parâmetros — sinalizando que agentes com memória de longo prazo saem do laboratório e entram em produção.",
+    "O segundo eixo dominante é a maturação da pilha técnica de inferência: RAG passou de padrão experimental para infraestrutura crítica com GraphRAG atingindo 99% de precisão via grafos de conhecimento, enquanto a otimização de inferência LLM alcança o caminho de 500ms→80ms via quantização, KV Cache, batching contínuo e decodificação especulativa — reduzindo o custo operacional de deployments em produção de forma mensurável."
+  ],
+  "callout": "Priorize arquiteturas agênticas com memória em grafo (GAM/GraphRAG) e implemente pipeline de otimização de inferência em 5 estágios para reduzir latência em até 85% sem perda de qualidade.",
+  "diag1": "",
+  "cap1": "",
+  "diag2": "",
+  "diag3": ""
+}
