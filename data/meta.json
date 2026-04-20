@@ -1,14 +1,14 @@
 {
-  "date": "2026-04-19",
-  "headline": "Agentes autônomos de IA dominam a agenda global enquanto RAG vira infraestrutura crítica de produção",
-  "lead": "A semana consolida a <strong>era dos agentes LLM</strong>: do GAM (memória hierárquica em grafos) ao Google ADK Python com 8.200 estrelas, workflows agênticos tornam-se o novo padrão industrial. Paralelamente, <strong>RAG evoluiu para infraestrutura crítica</strong> com GraphRAG atingindo 99% de precisão e otimização de inferência reduzindo latência de 500ms para 80ms.",
-  "highlights": ["AgenticAI", "GraphRAG", "Gemma4", "QwenLeaderboard", "InferenceOptimization"],
+  "date": "2026-04-20",
+  "headline": "MCP atinge 97 milhões de instalações enquanto GPT-5.4 redefine autonomia agêntica com janela de 1 milhão de tokens",
+  "lead": "O <strong>Model Context Protocol da Anthropic</strong> ultrapassou 97 milhões de instalações em março de 2026, consolidando-se como padrão universal para conexão de agentes LLM a ferramentas externas — todos os grandes provedores já shipam tooling MCP-compatível por padrão. Simultaneamente, o <strong>GPT-5.4 da OpenAI</strong> com janela de 1 milhão de tokens e execução autônoma de workflows multi-etapas em ambientes desktop atingiu 75% no benchmark OSWorld-V, marcando novo patamar de autonomia computacional.",
+  "highlights": ["MCP97M", "GPT5.4OSWorld", "AlphaEvolve", "GraphRAG99pct", "InferenceOpt500to80ms"],
   "lang_counts": {"en": 5, "pt": 2, "zh": 3},
   "exec_paragraphs": [
-    "O evento mais significativo do dia é a convergência entre arquitetura agêntica e memória persistente: o paper GAM (arxiv 2604.12285) apresenta desacoplamento entre codificação e consolidação de memória em grafos hierárquicos, exatamente quando o Google lança seu ADK Python e a Anthropic anuncia o Claude Mythos 5 com 10 trilhões de parâmetros — sinalizando que agentes com memória de longo prazo saem do laboratório e entram em produção.",
-    "O segundo eixo dominante é a maturação da pilha técnica de inferência: RAG passou de padrão experimental para infraestrutura crítica com GraphRAG atingindo 99% de precisão via grafos de conhecimento, enquanto a otimização de inferência LLM alcança o caminho de 500ms→80ms via quantização, KV Cache, batching contínuo e decodificação especulativa — reduzindo o custo operacional de deployments em produção de forma mensurável."
+    "O evento mais significativo do dia é a consolidação do Model Context Protocol como camada universal de integração agêntica: com 97 milhões de instalações e adoção por todos os grandes provedores de IA, o MCP transforma a forma como agentes consomem ferramentas externas — não mais uma opção arquitetural, mas um pré-requisito de produção. Paralelamente, o GPT-5.4 com janela de 1 milhão de tokens e 75% no benchmark OSWorld-V representa o primeiro modelo frontier capaz de executar workflows autônomos completos em ambientes desktop reais, enquanto o AlphaEvolve do DeepMind já opera na infraestrutura global do Google há mais de um ano, recuperando continuamente 0,7% dos recursos computacionais da empresa.",
+    "O segundo eixo dominante é a maturação da engenharia de inferência LLM: a trajetória de 500ms para 80ms via pipeline de cinco estágios (quantização INT8/INT4, KV Cache em camadas, batching contínuo, aceleração de kernels, decodificação especulativa) consolida-se como receita padrão para deployments de baixa latência. O paper GAM (arxiv 2604.12285) complementa esse quadro propondo memória hierárquica em grafos para agentes, desacoplando codificação de consolidação — exatamente quando o GraphRAG atinge 99% de precisão em recuperação estruturada em ambientes enterprise, sinalizando que a pilha técnica de agentes de produção amadureceu."
   ],
-  "callout": "Priorize arquiteturas agênticas com memória em grafo (GAM/GraphRAG) e implemente pipeline de otimização de inferência em 5 estágios para reduzir latência em até 85% sem perda de qualidade.",
+  "callout": "Implemente o Model Context Protocol como camada de integração padrão para todos os agentes LLM em produção — com 97M de instalações e suporte universal dos provedores, arquiteturas agênticas sem MCP acumulam dívida técnica mensurável.",
   "diag1": "",
   "cap1": "",
   "diag2": "",
